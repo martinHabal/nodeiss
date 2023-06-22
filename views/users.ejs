@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/style.css">
+  <title>Users</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #ffffff;
+      border: 1px solid #dddddd;
+    }
+
+    th {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 2px solid #dddddd;
+    }
+
+    /* Styly pro buňky tabulky */
+    td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #dddddd;
+    }
+
+    /* Styl pro sudé řádky */
+    tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    /* Při najetí kurzoru myši na řádek */
+    tbody tr:hover {
+      background-color: #ebebeb;
+    }
+  </style>
+  <script>
+    
+    function deleUser(id) {
+      
+      let data = {
+        name: "popo",
+        id: id
+      };
+      console.log('Parametr:', data);
+      // Vytvoření nového POST požadavku pomocí Fetch API
+      fetch('/deleteuser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        // Zde můžete zpracovat odpověď serveru po odeslání požadavku
+        console.log('Response:', response);
+      })
+      .catch(error => {
+        // Zde můžete zpracovat chybu při odesílání požadavku
+        console.error('Error:', error);
+      });
+    }
+
+    function deleAllUsers() {
+      
+     
+    
+      // Vytvoření nového POST požadavku pomocí Fetch API
+      fetch('/deleteallusers', {
+        method: 'POST'
+      })
+      .then(response => {
+        // Zde můžete zpracovat odpověď serveru po odeslání požadavku
+        console.log('Response:', response);
+      })
+      .catch(error => {
+        // Zde můžete zpracovat chybu při odesílání požadavku
+        console.error('Error:', error);
+      });
+    }
+  </script>
+  
+</head>
+
+<body>
+  <header>
+    <h1>Superprojekt ISS-CHeb</h1>
+  </header>
+  <button><a href="/">Rozcestník</a></button>
+  <button><a href="/newuser">nový</a></button>
+  <% if(results.length === 0) { %>
+    <h1>Databáze je prázdná</h1>
+    <% } else {%>
+  <table>
+    <% for(var i=0; i < results.length; i++) { %>
+      <tr>
+        <td>
+          <%= results[i].lname %>
+        </td>
+        <td>
+          <%= results[i].fname %>
+        </td>
+        <td>
+          <button onclick="deleUser('<%= results[i].idusers %>')">Delete</button>
+        </td>
+      </tr>
+      <% } %>
+  </table>
+<% } %>
+<button onclick="deleAllUsers()">Delete All</button>
+</body>
+
+</html>
