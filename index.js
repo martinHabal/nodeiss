@@ -7,6 +7,9 @@ const bodyParser = require('body-parser');//imort bodyParseru
 const app = express()//app běží na expressu
 const port = 80//port, na kterém běží aplikace
 
+const http = require('http').Server(app)//chat
+const io = require('socket.io')(http);//import socket knihovny pro chat
+
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -115,8 +118,38 @@ app.get('/galery', (req, res) => {
   const imagePath = 'w.PNG'; // Cesta k obrázku
   res.render('galery', { imagePath });
 });
+app.get('/chat', (req, res) => {
+  res.render('chat');
+});
+
+// Serve the Socket.io client script
+app.get('/socket.io/socket.io.js', (req, res) => {
+  res.sendFile(__dirname + '/node_modules/socket.io/client-dist/socket.io.js');
+});
+
+io.on('connection', (socket) => {
+  console.log('Nový uživatel připojen');
+  console.log(socket.handshake.address)
+
+  socket.on('chat message', (message) => {
+    
+    console.log('Přijata zpráva: ' + message);
+    console.log(socket.handshake.address)
+    let messageip = socket.handshake.address + "" + message
+    io.emit('chat message', messageip);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Uživatel odpojen');
+  });
+});
 
 //NIKDY nazakomentovávat, toto spouští apku!!!!!!!!!!!!!!
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+// app.listen(port, () => {
+//   console.log(`Example app listening on port ${port}`)
+// })
+
+//tak kvuli tomu chatu nahradim app za http
+http.listen(80, () => {
+  console.log('Server is running on port 3000');
+});
