@@ -10,6 +10,10 @@ const port = 80//port, na kterém běží aplikace
 const http = require('http').Server(app)//chat
 const io = require('socket.io')(http);//import socket knihovny pro chat
 
+//imort modulu
+const routes = require('./modules/routes');
+// Použití modulu s routami
+app.use('/', routes);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -132,7 +136,7 @@ io.on('connection', (socket) => {
   console.log(socket.handshake.address)
 
   socket.on('chat message', (message) => {
-    
+
     console.log('Přijata zpráva: ' + message);
     console.log(socket.handshake.address)
     let messageip = socket.handshake.address + "" + message
