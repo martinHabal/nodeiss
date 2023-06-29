@@ -30,7 +30,7 @@ const connection = mysql.createConnection({
   host: 'localhost', // Název nebo IP adresa serveru databáze
   user: 'monty', // Uživatelské jméno
   password: 'monty88', // Heslo
-  database: 'new_schema', // Název databáze
+  database: 'timetable', // Název databáze
   port: 3001
 });
 

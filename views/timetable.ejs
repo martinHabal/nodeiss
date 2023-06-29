@@ -1,12 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>timetable</title>
+  <title>School Schedule</title>
 </head>
 <body>
-    
+  <h1>School Schedule</h1>
+  <table>
+    <tr>
+      <th>Day</th>
+      <th>Period 1</th>
+      <th>Period 2</th>
+      <th>Period 3</th>
+      <th>Period 4</th>
+    </tr>
+    <% scheduleData.days.forEach((day, index) => { %>
+      <tr>
+        <td><%= day %></td>
+        <% scheduleData.timetable[index].forEach((subject) => { %>
+          <td><%= subject %></td>
+        <% }); %>
+      </tr>
+    <% }); %>
+  </table>
 </body>
 </html>
