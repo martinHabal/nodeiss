@@ -1,26 +1,137 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>School Schedule</title>
+  <title>Rozvrh hodin</title>
+  <style>
+    div {
+      width: 49%;
+      border: 1px solid black;
+      float: left;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ccc;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    td:first-child {
+      font-weight: bold;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>School Schedule</h1>
+  <h1>Rozvrh hodin</h1>
+  <button><a href="/">menu</a></button>
+  <h2>Lichý</h2>
+  <table>
+    <tr>
+      <th>Den</th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>10</th>
+      <th>11</th>
+      <th>12</th>
+      <th>13</th>
+
+    </tr>
+    <% if(results.length===0) { %>
+      <h1>Databáze je prázdná</h1>
+      <% } else {%>
+
+        <% let currentDay="" ; %>
+        
+        <% results.forEach((item, index)=> { %>
+          <% if (currentDay !==item.day) { %>
+            <tr>
+
+              <% currentDay=item.day %>
+              
+              <td>
+                <%= item.day %>
+              </td>
+              
+              <% } else { %>
+                <td>
+                  <%= item.class %>
+                </td>
+
+                    <% } %>
+
+                      <% %>
+                        <% }) %>
+                          <% } %>
+          </tr>
+
+
+
+
+  </table>
+
+  <h2>Sudý</h2>
   <table>
     <tr>
       <th>Day</th>
-      <th>Period 1</th>
-      <th>Period 2</th>
-      <th>Period 3</th>
-      <th>Period 4</th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>10</th>
+      <th>11</th>
+      <th>12</th>
+      <th>13</th>
+
     </tr>
-    <% scheduleData.days.forEach((day, index) => { %>
-      <tr>
-        <td><%= day %></td>
-        <% scheduleData.timetable[index].forEach((subject) => { %>
-          <td><%= subject %></td>
-        <% }); %>
-      </tr>
-    <% }); %>
+    <% if(results.length===0) { %>
+      <h1>Databáze je prázdná</h1>
+      <% } else {%>
+
+        <% results.forEach(item=> { %>
+          <tr>
+            <td>
+              <%= item.day %>
+            </td>
+            <td>
+              <%= item.day %>
+            </td>
+
+          </tr>
+          <% }) %>
+
+            <% } %>
+
+
   </table>
 </body>
+
 </html>

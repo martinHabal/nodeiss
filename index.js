@@ -82,7 +82,7 @@ app.get('/users', (req, res) => {
   })
 })
 
-//routa na výmyz usera
+//routa na výmaz usera
 app.post('/deleteuser', (req, res) => {
   console.log(`Body je ${req.body.id}`)
   let sql = `DELETE FROM users WHERE idusers=${req.body.id}`;

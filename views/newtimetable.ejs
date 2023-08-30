@@ -10,7 +10,7 @@
         div {
             width: 49%;
             border: 1px solid black;
-            float: left;
+            /* float: left; */
         }
 
         table {
@@ -36,43 +36,59 @@
         td:first-child {
             font-weight: bold;
         }
+
+        td input {
+            max-width: 50px;
+            
+        }
     </style>
 </head>
 
 <body>
+    <button><a href="/">menu</a></button>
     <div>
         <form action="/newtimetable" method="POST">
-        <label for="hours">vyberte den:</label>
-        <select name="day">
+            <label for="period">vyberte týden:</label>
+            <select name="period">
 
-            <% data.days.forEach(value=> { %>
-                <option value="<%= value %>">
-                    <%= value %>
-                </option>
-                <% }); %>
-        </select>
+                <% data.period.forEach(value=> { %>
+                    <option value="<%= value %>">
+                        <%= value %>
+                    </option>
+                    <% }); %>
+            </select>
+            <label for="day">vyberte den:</label>
+            <select name="day">
 
-        <label for="hours">vyberte hodinu:</label>
-        <select name="hour">
+                <% data.days.forEach(value=> { %>
+                    <option value="<%= value %>">
+                        <%= value %>
+                    </option>
+                    <% }); %>
+            </select>
 
-            <% data.hours.forEach(value=> { %>
-                <option value="<%= value %>">
-                    <%= value %>
-                </option>
-                <% }); %>
-        </select>
+            <label for="hours">vyberte hodinu:</label>
+            <select name="hour">
 
-        <label for="hours">napište třídu:</label>
+                <% data.hours.forEach(value=> { %>
+                    <option value="<%= value %>">
+                        <%= value %>
+                    </option>
+                    <% }); %>
+            </select>
 
-        <input type="text" id="hours" name="class"><br><br>
-        <input type="submit" value="Odeslat">
+            <label for="class">napište třídu:</label>
+
+            <input type="text" id="class" name="class"><br><br>
+            <input type="submit" value="Odeslat">
         </form>
     </div>
 
-    <div>
+    <!-- <div> -->
         <table>
             <thead>
                 <tr>
+                    <th></th>
                     <th>0</th>
                     <th>1</th>
                     <th>2</th>
@@ -93,19 +109,19 @@
             <tbody>
                 <tr>
                     <td>Pondělí</td>
-                    <td>M</td>
-                    <td>A</td>
-                    <td>F</td>
-                    <td>F</td>
-                    <td>Ch</td>
-                    <td>D</td>
-                    <td>M</td>
-                    <td>A</td>
-                    <td>F</td>
-                    <td>F</td>
-                    <td>Ch</td>
-                    <td>D</td>
-                    <td>M</td>
+                    <td><input type="text" id="mo_0" name="mo_0"></td>
+                    <td><input type="text" id="mo_0" name="mo_0"></td>
+                    <td><input type="text" id="mo_0" name="mo_0"></td>
+                    <td><input type="text" id="mo_0" name="mo_0"></td>
+                    <td><input type="text" id="mo_0" name="mo_0"></td>
+                    <td><input type="text" id="mo_0" name="mo_0"></td>
+                    <td><input type="text" id="mo_0" name="mo_0"></td>
+                    <td><input type="text" id="mo_0" name="mo_0"></td>
+                    <td><input type="text" id="mo_0" name="mo_0"></td>
+                    <td><input type="text" id="mo_0" name="mo_0"></td>
+                    <td><input type="text" id="mo_0" name="mo_0"></td>
+                    <td><input type="text" id="mo_0" name="mo_0"></td>
+                    <td><input type="text" id="mo_0" name="mo_0"></td>
 
 
                 </tr>
@@ -177,7 +193,7 @@
             </tbody>
         </table>
 
-    </div>
+    <!-- </div> -->
 
 
 
