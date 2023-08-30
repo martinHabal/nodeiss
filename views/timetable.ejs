@@ -20,6 +20,7 @@
       padding: 10px;
       text-align: center;
       border: 1px solid #ccc;
+      cursor: pointer;
     }
 
     th {
@@ -64,28 +65,28 @@
       <% } else {%>
 
         <% let currentDay="" ; %>
-        
-        <% results.forEach((item, index)=> { %>
-          <% if (currentDay !==item.day) { %>
-            <tr>
 
-              <% currentDay=item.day %>
-              
-              <td>
-                <%= item.day %>
-              </td>
-              
-              <% } else { %>
-                <td>
-                  <%= item.class %>
-                </td>
+          <% results.forEach((item, index)=> { %>
+            <% if (currentDay !==item.day) { %>
+              <tr>
+
+                <% currentDay=item.day %>
+
+                  <td>
+                    <%= item.day %>
+                  </td>
+
+                  <% } else { %>
+                    <td day="<%= item.day %>" hour="<%= item.hour %>" onclick=change(event)>
+                      <%= item.class %>
+                    </td>
 
                     <% } %>
 
                       <% %>
                         <% }) %>
                           <% } %>
-          </tr>
+              </tr>
 
 
 
@@ -132,6 +133,48 @@
 
 
   </table>
+  <script>
+    function change() {
+      console.log(this.event.target)
+
+      // prompt("Zadejte předmět")
+
+      // URL API, kam bude odeslán požadavek
+      const apiUrl = '/timetableupdate';
+
+      // Data, která budou odeslána jako součást požadavku (může být objekt nebo FormData)
+      const requestData = {
+        key1: 'value1',
+        key2: 'value2'
+      };
+
+      // Konfigurace pro POST požadavek
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json' // Změňte na 'application/x-www-form-urlencoded', pokud odesíláte FormData
+        },
+        body: JSON.stringify(requestData) // Změňte na new URLSearchParams(requestData) pro 'application/x-www-form-urlencoded'
+      };
+
+      // Odeslání požadavku pomocí funkce fetch
+      fetch(apiUrl, requestOptions)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Chyba při komunikaci s API.');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Úspěšně zpracována odpověď z API:', data);
+          // Zde můžete provést další zpracování dat z API
+        })
+        .catch(error => {
+          console.error('Chyba:', error);
+          // Zde můžete zpracovat chybu a poskytnout zpětnou vazbu uživateli
+        });
+    }
+  </script>
 </body>
 
 </html>
