@@ -92,14 +92,13 @@ router.post('/newtimetable', function (request, response, next) {
 router.post('/timetableupdate', function (request, response, next) {
 
 
-  console.log(request.body.day)
-  console.log(request.body.hour)
+  console.log(request.body.id)
+  console.log(request.body.data)
 
   // Aktualizace záznamu v tabulce
-const idToUpdate = 6; // ID záznamu, který chcete aktualizovat
+const idToUpdate = request.body.id; // ID záznamu, který chcete aktualizovat
 const newValues = {
-  day: 'po',
-  hour: 'po'
+  data: request.body.data
 };
   // SQL dotaz pro vložení dat do databáze
   const sqlQuery = 'UPDATE timetable_odd SET ? WHERE id = ?';
@@ -110,9 +109,24 @@ const newValues = {
     }
     console.log('Záznam byl úspěšně aktualizován.');
   });
-  response.render('newtimetable', { data });
+
+  
+  // response.render('newtimetable', { data });
   // response.send("hotovo")
 
 })
+
+// statement
+router.get('/statement', (req, res) => {
+  connection.query('SELECT * FROM timetable_odd', (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      return;
+    }
+    console.log(results)
+    res.render('statement', { results });
+
+  })
+});
 // Exportování routeru
 module.exports = router;

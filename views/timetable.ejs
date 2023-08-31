@@ -43,7 +43,7 @@
   <h2>Lichý</h2>
   <table>
     <tr>
-      <th>Den</th>
+      <th></th>
       <th>0</th>
       <th>1</th>
       <th>2</th>
@@ -64,88 +64,48 @@
       <h1>Databáze je prázdná</h1>
       <% } else {%>
 
-        <% let currentDay="" ; %>
 
-          <% results.forEach((item, index)=> { %>
-            <% if (currentDay !==item.day) { %>
-              <tr>
-
-                <% currentDay=item.day %>
-
-                  <td>
-                    <%= item.day %>
-                  </td>
-
-                  <% } else { %>
-                    <td day="<%= item.day %>" hour="<%= item.hour %>" onclick=change(event)>
-                      <%= item.class %>
-                    </td>
-
-                    <% } %>
-
-                      <% %>
-                        <% }) %>
-                          <% } %>
-              </tr>
-
-
-
-
-  </table>
-
-  <h2>Sudý</h2>
-  <table>
-    <tr>
-      <th>Day</th>
-      <th>0</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-      <th>7</th>
-      <th>8</th>
-      <th>9</th>
-      <th>10</th>
-      <th>11</th>
-      <th>12</th>
-      <th>13</th>
-
-    </tr>
-    <% if(results.length===0) { %>
-      <h1>Databáze je prázdná</h1>
-      <% } else {%>
-
-        <% results.forEach(item=> { %>
+        <% let count=0 %>
+        
           <tr>
-            <td>
-              <%= item.day %>
-            </td>
-            <td>
-              <%= item.day %>
-            </td>
+            <% results.forEach((item, index)=> { %>
+              <!-- <% console.log(count) %> -->
+                <% count ++ %>
+                  <td id="<%= item.id %>" day="<%= item.day %>" hour="<%= item.hour %>" onclick=change(event)>
+                    <%= item.data %>
+                  </td>
+                  <% if(count==15) {  %>
+          </tr>
+          <tr>
+            <%count=0}%>
+            <% if(index === 74){%>
+</tr><td>Sudý</td><tr>
+              <% } %>
+
+              <% }) %>
+                <% } %>
 
           </tr>
-          <% }) %>
 
-            <% } %>
+
 
 
   </table>
+
+  
   <script>
     function change() {
-      console.log(this.event.target)
+      console.log(event.target)
 
-      // prompt("Zadejte předmět")
+      let data = prompt("Zadejte předmět")
 
       // URL API, kam bude odeslán požadavek
       const apiUrl = '/timetableupdate';
 
       // Data, která budou odeslána jako součást požadavku (může být objekt nebo FormData)
       const requestData = {
-        key1: 'value1',
-        key2: 'value2'
+        id: event.target.id,
+        data: data
       };
 
       // Konfigurace pro POST požadavek
@@ -173,7 +133,9 @@
           console.error('Chyba:', error);
           // Zde můžete zpracovat chybu a poskytnout zpětnou vazbu uživateli
         });
+        location.reload()
     }
+    
   </script>
 </body>
 

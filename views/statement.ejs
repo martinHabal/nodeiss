@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Výkaz</title>
+    <style>
+        div {
+          width: 49%;
+          border: 1px solid black;
+          float: left;
+        }
+    
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+    
+        th,
+        td {
+          padding: 10px;
+          text-align: center;
+          border: 1px solid #ccc;
+          cursor: pointer;
+        }
+    
+        th {
+          background-color: #f2f2f2;
+        }
+    
+        tr:nth-child(even) {
+          background-color: #f9f9f9;
+        }
+    
+        td:first-child {
+          font-weight: bold;
+        }
+      </style>
+</head>
+<body>
+    <h1>Výkaz práce</h1>
+  <button><a href="/">menu</a></button>
+  <table>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>10</th>
+      <th>11</th>
+      <th>12</th>
+      <th>13</th>
+
+    </tr>
+    <% if(results.length===0) { %>
+      <h1>Databáze je prázdná</h1>
+      <% } else {%>
+
+
+      
+        <% for(let i = 0; i < 31;i++) { %>
+            <tr>
+          
+              <%  for(let j = 0; j < 16;j++) { %>
+                  <td onclick=change(event)>
+                    <%= i+1 %>
+                  </td>
+                  <% } %>
+          </tr>
+          <tr>
+           
+
+              <% } %>
+              <% } %>
+
+          </tr>
+
+
+
+
+  </table>
+</body>
+</html>
