@@ -17,16 +17,64 @@
       border: 1px solid black;
       padding: 8px;
       text-align: center;
+      cursor: pointer;
     }
 
     th {
       background-color: #f2f2f2;
     }
   </style>
+  
 </head>
 
 <body>
   <button><a href="/">home</a></button>
+
+  <script>
+    // Získání aktuálního data
+    const currentDate = new Date();
+
+    // Získání roku, měsíce a dne
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1; // Měsíce jsou indexovány od 0 (leden) do 11 (prosinec)
+    const currentDay = currentDate.getDate();
+
+    // Zobrazení aktuálního roku, měsíce a dne
+    console.log(`Aktuální rok: ${currentYear}`);
+    console.log(`Aktuální měsíc: ${currentMonth}`);
+    console.log(`Aktuální den: ${currentDay}`);
+
+    // Získání prvního dne měsíce následujícího měsíce
+    const firstDayOfNextMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+
+    // Posun na poslední den aktuálního měsíce
+    firstDayOfNextMonth.setDate(firstDayOfNextMonth.getDate() - 1);
+
+    // Získání počtu dní v aktuálním měsíci
+    const numberOfDaysInMonth = firstDayOfNextMonth.getDate();
+  </script>
+  <h3>
+    <% const currentDate=new Date(); %>
+    <% const currentYear=currentDate.getFullYear(); %>
+    <% const currentMonth=currentDate.getMonth() + 1; %>
+    <% const currentDay=currentDate.getDate(); %>
+
+    <% const firstDayOfNextMonth=new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+                            %>
+    <% firstDayOfNextMonth.setDate(firstDayOfNextMonth.getDate() - 1); %>
+    <% const numberOfDaysInMonth=firstDayOfNextMonth.getDate(); %>
+
+    <% const daysOfWeek=['Neděle', 'Pondělí' , 'Úterý' , 'Středa' , 'Čtvrtek' , 'Pátek'
+                                        , 'Sobota' ]; %>
+    <% const dayOfWeekNumber=currentDate.getDay();%>
+    <% const dayOfWeekName=daysOfWeek[dayOfWeekNumber];%>
+
+    <%= currentDay + ". " + currentMonth + ". " + currentYear
+                                                    + " a tento měsíc má " + numberOfDaysInMonth + " dní" + " dnes je "
+                                                    + dayOfWeekName %>
+  </h3>
+
+  
   <h1>
     iterace
   </h1>
@@ -335,7 +383,7 @@
       <%}else if(index===220) {%>
       <%day="Sobota" %>
     </tr>
-    ´
+    
 
 
 
@@ -441,13 +489,57 @@
 
 
       <%}%>
-                                    <td>
-                                        <%=item.id%>
+      <td id="<%= item.id %>" day="<%= item.day %>" hour="<%= item.hour %>" onclick=change(event)>
+                                        <%=item.class%>
       </td>
 
       <%})%>
     </tr>
   </table>
+  <script>
+    function change() {
+      console.log(event.target)
+
+      let data = prompt("Zadejte předmět")
+
+      // URL API, kam bude odeslán požadavek
+      const apiUrl = '/iteraceupdate';
+
+      // Data, která budou odeslána jako součást požadavku (může být objekt nebo FormData)
+      const requestData = {
+        id: event.target.id,
+        data: data
+      };
+
+      // Konfigurace pro POST požadavek
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json' // Změňte na 'application/x-www-form-urlencoded', pokud odesíláte FormData
+        },
+        body: JSON.stringify(requestData) // Změňte na new URLSearchParams(requestData) pro 'application/x-www-form-urlencoded'
+      };
+
+      // Odeslání požadavku pomocí funkce fetch
+      fetch(apiUrl, requestOptions)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Chyba při komunikaci s API.');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Úspěšně zpracována odpověď z API:', data);
+          // Zde můžete provést další zpracování dat z API
+        })
+        .catch(error => {
+          console.error('Chyba:', error);
+          // Zde můžete zpracovat chybu a poskytnout zpětnou vazbu uživateli
+        });
+        location.reload()
+    }
+    
+  </script>
 </body>
 
 </html>

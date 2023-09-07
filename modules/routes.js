@@ -135,10 +135,37 @@ router.get('/iterace', (req, res) => {
       console.error(error);
       return;
     }
-    console.log(results)
+    // console.log(results)
     res.render('iterace', { results });
 
   })
 });
+
+router.post('/iteraceupdate', function (request, response, next) {
+
+
+  console.log(request.body.id)
+  console.log(request.body.data)
+
+  // Aktualizace záznamu v tabulce
+const idToUpdate = request.body.id; // ID záznamu, který chcete aktualizovat
+const newValues = {
+  class: request.body.data
+};
+  // SQL dotaz pro vložení dat do databáze
+  const sqlQuery = 'UPDATE statement SET ? WHERE id = ?';
+  connection.query(sqlQuery, [newValues, idToUpdate], (err, result) => {
+    if (err) {
+      console.error('Chyba při aktualizaci záznamu: ' + err.stack);
+      return;
+    }
+    console.log('Záznam byl úspěšně aktualizován.');
+  });
+
+  
+  // response.render('newtimetable', { data });
+  // response.send("hotovo")
+
+})
 // Exportování routeru
 module.exports = router;
