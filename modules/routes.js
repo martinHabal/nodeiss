@@ -118,13 +118,25 @@ const newValues = {
 
 // statement
 router.get('/statement', (req, res) => {
-  connection.query('SELECT * FROM timetable_odd', (error, results, fields) => {
+  connection.query('SELECT * FROM statement', (error, results, fields) => {
     if (error) {
       console.error(error);
       return;
     }
     console.log(results)
     res.render('statement', { results });
+
+  })
+});
+
+router.get('/iterace', (req, res) => {
+  connection.query('SELECT * FROM statement', (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      return;
+    }
+    console.log(results)
+    res.render('iterace', { results });
 
   })
 });

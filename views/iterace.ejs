@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* Styly pro rozvrh */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th,
+    td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+
+<body>
+  <button><a href="/">home</a></button>
+  <h1>
+    iterace
+  </h1>
+  <% day="Pondělí" %>
+  <% hour=0 %>
+  <% date=1 %>
+  <table>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>10</th>
+
+    </tr>
+
+    <tr>
+
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <% results.forEach((item, index)=> {%>
+
+      <% if(index===11) {%>
+      <%day="Úterý" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <%} else if(index===22) {%>
+      <%day="Středa" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <%} else if(index===33) {%>
+      <%day="Čtvrtek" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <%}else if(index===44) {%>
+      <%day="Pátek" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <%}else if(index===55) {%>
+      <%day="Sobota" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <%day="Neděle" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+    </tr>
+    <tr>
+      <%day="Pondělí" %>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <%}else if(index===66) {%>
+      <%day="Úterý" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <%}else if(index===77) {%>
+      <%day="Středa" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <%}else if(index===88) {%>
+      <%day="Čtvrtek" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <%}else if(index===99) {%>
+      <%day="Pátek" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <%} else if(index===110) {%>
+      <%day="Sobota" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <%day="Neděle" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+    </tr>
+    <tr>
+      <%day="Pondělí" %>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+
+      <%}else if(index===121) {%>
+      <%day="Úterý" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>%>
+      <%}else if(index===132) {%>
+      <%day="Středa" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>%>
+      <%}else if(index===143) {%>
+      <%day="Čtvrtek" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <%} else if(index===154) {%>
+      <%day="Pátek" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <%}else if(index===165) {%>
+      <%day="Sobota" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <%day="Neděle" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <%day="Pondělí" %>
+      <td>
+        <%=day%>
+      </td>
+      <%}else if(index===176) {%>
+      <%day="Úterý" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <%} else if(index===187) {%>
+      <%day="Středa" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>%>
+      <%}else if(index===198) {%>
+      <%day="Čtvrtek" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>%>
+      <%}else if(index===209) {%>
+      <%day="Pátek" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>%>
+      <%}else if(index===220) {%>
+      <%day="Sobota" %>
+    </tr>
+    ´
+
+
+
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <%day="Neděle" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <%day="Pondělí22" %>
+
+      <td>
+        <%=day%>
+      </td>
+      <%}else if(index===231) {%>
+      <%day="Úterý" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <%} else if(index===242) {%>
+      <%day="Středa" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>%>
+      <%}else if(index===253) {%>
+      <%day="Čtvrtek" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>%>
+      <%}else if(index===264) {%>
+      <%day="Pátek" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>%>
+      <%}else if(index===275) {%>
+      <%day="Sobota" %>
+    </tr>
+
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+      <%day="Neděle" %>
+    </tr>
+    <tr>
+      <td>
+        <%=date%>
+        <% date++ %>
+      </td>
+      <td>
+        <%=day%>
+      </td>
+    </tr>
+    <tr>
+
+      <%}else if(index > 205) {%>
+
+
+      <%}%>
+                                    <td>
+                                        <%=item.id%>
+      </td>
+
+      <%})%>
+    </tr>
+  </table>
+</body>
+
+</html>
+<!-- chybi mi na konci break, kdyz by bylo vic dat, ale tech vic stejne nemuze byt ale je to osetreni, a ten kod samozrejme musim zkratit -->
