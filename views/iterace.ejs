@@ -8,7 +8,7 @@
   <style>
     /* Styly pro rozvrh */
     table {
-      border-collapse: collapse;
+      /* border-collapse: collapse; */
       width: 100%;
     }
 
@@ -18,13 +18,34 @@
       padding: 8px;
       text-align: center;
       cursor: pointer;
+      border-radius: 5px;
     }
 
     th {
       background-color: #f2f2f2;
     }
+
+    /* dialog */
+    .dialog {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    }
+
+
+    /* checkbox */
+    /* Skryjeme výchozí vzhled checkboxu */
+input[type="checkbox"] {
+  margin: 0
+}
+
   </style>
-  
+
 </head>
 
 <body>
@@ -74,7 +95,7 @@
                                                     + dayOfWeekName %>
   </h3>
 
-  
+
   <h1>
     iterace
   </h1>
@@ -383,7 +404,7 @@
       <%}else if(index===220) {%>
       <%day="Sobota" %>
     </tr>
-    
+
 
 
 
@@ -489,57 +510,144 @@
 
 
       <%}%>
-      <td id="<%= item.id %>" day="<%= item.day %>" hour="<%= item.hour %>" onclick=change(event)>
-                                        <%=item.class%>
+<% color = "transparent" %>
+
+      <% if(item.overtime === 1) {color="red"}
+ else if(item.substit === 1) {color="yellow"}
+ else if(item.dropped === 1) {color="grey"}
+ else if(item.doctor === 1) {color="blue"} %>
+
+      <td style="background-color: <%= color%>" id="<%= item.id %>" day="<%= item.day %>" hour="<%= item.hour %>" onclick=change(event)>
+        <%=item.class%>
+        <!-- <input type="checkbox" id="myCheckbox">
+        <input type="checkbox" id="myCheckbox">
+        <input type="checkbox" id="myCheckbox">
+        <input type="checkbox" id="myCheckbox"> -->
       </td>
 
       <%})%>
     </tr>
   </table>
   <script>
+    //naveseni eventhandleru na right click
+    const tdElements = document.querySelectorAll("td");
+    tdElements.forEach((td) => {
+
+      td.addEventListener('contextmenu', function(ev) {
+        ev.preventDefault();
+        dialog.style.display = "block"; // Zobrazíme dialog
+        return false;
+      }, false);
+    })
+//zastaveni probublavani checkboxu
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+checkboxes.forEach( checkbox => {
+  checkbox.addEventListener("click", function(event) {
+  event.stopPropagation(); // Zastaví další šíření události
+  // Toto je event handler pro kliknutí na checkbox
+});
+})
+
+
+
+
+
+    // zmena predmetu
     function change() {
       console.log(event.target)
 
       let data = prompt("Zadejte předmět")
+      if (data) {
+        // URL API, kam bude odeslán požadavek
+        const apiUrl = '/iteraceupdate';
 
-      // URL API, kam bude odeslán požadavek
-      const apiUrl = '/iteraceupdate';
+        // Data, která budou odeslána jako součást požadavku (může být objekt nebo FormData)
+        const requestData = {
+          id: event.target.id,
+          data: data
+        };
 
-      // Data, která budou odeslána jako součást požadavku (může být objekt nebo FormData)
-      const requestData = {
-        id: event.target.id,
-        data: data
-      };
+        // Konfigurace pro POST požadavek
+        const requestOptions = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json' // Změňte na 'application/x-www-form-urlencoded', pokud odesíláte FormData
+          },
+          body: JSON.stringify(requestData) // Změňte na new URLSearchParams(requestData) pro 'application/x-www-form-urlencoded'
+        };
 
-      // Konfigurace pro POST požadavek
-      const requestOptions = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json' // Změňte na 'application/x-www-form-urlencoded', pokud odesíláte FormData
-        },
-        body: JSON.stringify(requestData) // Změňte na new URLSearchParams(requestData) pro 'application/x-www-form-urlencoded'
-      };
-
-      // Odeslání požadavku pomocí funkce fetch
-      fetch(apiUrl, requestOptions)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Chyba při komunikaci s API.');
-          }
-          return response.json();
-        })
-        .then(data => {
-          console.log('Úspěšně zpracována odpověď z API:', data);
-          // Zde můžete provést další zpracování dat z API
-        })
-        .catch(error => {
-          console.error('Chyba:', error);
-          // Zde můžete zpracovat chybu a poskytnout zpětnou vazbu uživateli
-        });
+        // Odeslání požadavku pomocí funkce fetch
+        fetch(apiUrl, requestOptions)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Chyba při komunikaci s API.');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log('Úspěšně zpracována odpověď z API:', data);
+            // Zde můžete provést další zpracování dat z API
+          })
+          .catch(error => {
+            console.error('Chyba:', error);
+            // Zde můžete zpracovat chybu a poskytnout zpětnou vazbu uživateli
+          });
         location.reload()
+      }
     }
-    
   </script>
+
+
+  <!-- dialog -->
+  <div id="myDialog" class="dialog">
+    <h2>Dialog s checkboxem</h2>
+    <label for="overtime">Přesčasová</label>
+    <input type="checkbox" id="overtime">
+    <label for="substit">Suplovaná</label>
+    <input type="checkbox" id="substit">
+    <label for="dropped">Odpadnutá</label>
+    <input type="checkbox" id="dropped">
+    <label for="doctor">Lékař</label>
+    <input type="checkbox" id="doctor"><br />
+    <label for="note">Poznámka</label>
+    <input type="text" id="note"><br />
+    <button id="saveDialog">Uložit</button>
+    <button id="closeDialog">Zavřít dialog</button>
+
+    <button style="background-color: red" id="red">Přesčasová</button>
+    <button style="background-color: rgb(255, 247, 0)" id="yellow">Suplovaná</button>
+    <button style="background-color: grey" id="grey">Odpadnutá</button>
+    <button style="background-color: blue" id="blue">Lékař</button>
+  </div>
+  <script>
+    // Získáme reference na prvky HTML
+    const openButton = document.getElementById("closeDialog");
+    const dialog = document.getElementById("myDialog");
+    const overtime = document.getElementById("overtime");
+    const substit = document.getElementById("substit");
+    const dropped = document.getElementById("dropped");
+    const doctor = document.getElementById("doctor");
+
+    // Přidáme obsluhu události pro tlačítko Otevřít dialog
+    openButton.addEventListener("click", () => {
+      dialog.style.display = "none"; // Zobrazíme dialog
+    });
+
+    // Přidáme obsluhu události pro checkbox
+    checkbox.addEventListener("change", () => {
+      const label = document.querySelector("label[for='myCheckbox']");
+      if (checkbox.checked) {
+        label.textContent = "Skrytý text je zobrazen.";
+      } else {
+        label.textContent = "Zobrazit text";
+      }
+    });
+  </script>
+  <h2>Legenda</h2>
+  <p>Bílé pole je základní hodina definována podle rozvrhu konkrétním předmětem v konkrétní třídě.</p>
+  <p>Žluté pole je suplovaná nebo přesunutá hodina, vložená do volného pole, kde podle rozvrhu neprobíhala žádná výuka.</p>
+  <p>Šedé pole je odpadlá nebo přesouvaná hodina, vyjmutá z plného pole, kde podle rozvrhu měla probíhat řádná výuka, avšak došlo k jejímu odpadnutí nebo přesunutí.</p>
+  <p>Modré pole znamená, že hodina odpadlá s náhradou mzdy.(lékař)</p>
 </body>
 
 </html>
