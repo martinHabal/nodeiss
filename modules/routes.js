@@ -135,7 +135,7 @@ router.get('/iterace', (req, res) => {
       console.error(error);
       return;
     }
-    // console.log(results)
+    console.log(results)
     res.render('iterace', { results });
 
   })

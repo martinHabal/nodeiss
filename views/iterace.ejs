@@ -40,10 +40,9 @@
 
     /* checkbox */
     /* Skryjeme výchozí vzhled checkboxu */
-input[type="checkbox"] {
-  margin: 0
-}
-
+    input[type="checkbox"] {
+      margin: 0
+    }
   </style>
 
 </head>
@@ -131,7 +130,7 @@ input[type="checkbox"] {
       </td>
       <% results.forEach((item, index)=> {%>
 
-      <% if(index===11) {%>
+      <% if(index===11 || index===66 || index===121 || index===176 || index===231) {%>
       <%day="Úterý" %>
     </tr>
     <tr>
@@ -142,7 +141,7 @@ input[type="checkbox"] {
       <td>
         <%=day%>
       </td>
-      <%} else if(index===22) {%>
+      <%} else if(index===22 || index===77 || index===132 || index===187 || index===242) {%>
       <%day="Středa" %>
     </tr>
     <tr>
@@ -153,7 +152,7 @@ input[type="checkbox"] {
       <td>
         <%=day%>
       </td>
-      <%} else if(index===33) {%>
+      <%} else if(index===33 || index===88 || index===143 || index===196 || index===253) {%>
       <%day="Čtvrtek" %>
     </tr>
     <tr>
@@ -164,7 +163,7 @@ input[type="checkbox"] {
       <td>
         <%=day%>
       </td>
-      <%}else if(index===44) {%>
+      <%}else if(index===44 || index===99 || index===154 || index===207 || index===264) {%>
       <%day="Pátek" %>
     </tr>
     <tr>
@@ -175,7 +174,7 @@ input[type="checkbox"] {
       <td>
         <%=day%>
       </td>
-      <%}else if(index===55) {%>
+      <%}else if(index===55 || index==110 || index===165 || index===218 || index===275) {%>
       <%day="Sobota" %>
     </tr>
     <tr>
@@ -206,306 +205,6 @@ input[type="checkbox"] {
       <td>
         <%=day%>
       </td>
-      <%}else if(index===66) {%>
-      <%day="Úterý" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>
-      <%}else if(index===77) {%>
-      <%day="Středa" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>
-      <%}else if(index===88) {%>
-      <%day="Čtvrtek" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>
-      <%}else if(index===99) {%>
-      <%day="Pátek" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>
-      <%} else if(index===110) {%>
-      <%day="Sobota" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>
-      <%day="Neděle" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>
-    </tr>
-    <tr>
-      <%day="Pondělí" %>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>
-
-      <%}else if(index===121) {%>
-      <%day="Úterý" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>%>
-      <%}else if(index===132) {%>
-      <%day="Středa" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>%>
-      <%}else if(index===143) {%>
-      <%day="Čtvrtek" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>
-      <%} else if(index===154) {%>
-      <%day="Pátek" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>
-      <%}else if(index===165) {%>
-      <%day="Sobota" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>
-      <%day="Neděle" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <%day="Pondělí" %>
-      <td>
-        <%=day%>
-      </td>
-      <%}else if(index===176) {%>
-      <%day="Úterý" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>
-      <%} else if(index===187) {%>
-      <%day="Středa" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>%>
-      <%}else if(index===198) {%>
-      <%day="Čtvrtek" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>%>
-      <%}else if(index===209) {%>
-      <%day="Pátek" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>%>
-      <%}else if(index===220) {%>
-      <%day="Sobota" %>
-    </tr>
-
-
-
-
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>
-      <%day="Neděle" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <%day="Pondělí22" %>
-
-      <td>
-        <%=day%>
-      </td>
-      <%}else if(index===231) {%>
-      <%day="Úterý" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>
-      <%} else if(index===242) {%>
-      <%day="Středa" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>%>
-      <%}else if(index===253) {%>
-      <%day="Čtvrtek" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>%>
-      <%}else if(index===264) {%>
-      <%day="Pátek" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>%>
-      <%}else if(index===275) {%>
-      <%day="Sobota" %>
-    </tr>
-
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>
-      <%day="Neděle" %>
-    </tr>
-    <tr>
-      <td>
-        <%=date%>
-        <% date++ %>
-      </td>
-      <td>
-        <%=day%>
-      </td>
-    </tr>
-    <tr>
-
       <%}else if(index > 205) {%>
 
 
@@ -539,15 +238,14 @@ input[type="checkbox"] {
         return false;
       }, false);
     })
-//zastaveni probublavani checkboxu
-const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-checkboxes.forEach( checkbox => {
-  checkbox.addEventListener("click", function(event) {
-  event.stopPropagation(); // Zastaví další šíření události
-  // Toto je event handler pro kliknutí na checkbox
-});
-})
-
+    //zastaveni probublavani checkboxu
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener("click", function(event) {
+        event.stopPropagation(); // Zastaví další šíření události
+        // Toto je event handler pro kliknutí na checkbox
+      });
+    })
 
 
 
