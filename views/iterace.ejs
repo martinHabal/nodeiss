@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <script src="../scripts/script1.js"></script>
   <style>
     /* Styly pro rozvrh */
     table {
@@ -40,8 +41,9 @@
 
     /* checkbox */
     /* Skryjeme výchozí vzhled checkboxu */
-    input[type="checkbox"] {
-      margin: 0
+    select {
+      display: none;
+      float: right;
     }
   </style>
 
@@ -51,6 +53,9 @@
   <button><a href="/">home</a></button>
 
   <script>
+   
+
+
     // Získání aktuálního data
     const currentDate = new Date();
 
@@ -216,38 +221,100 @@
  else if(item.dropped === 1) {color="grey"}
  else if(item.doctor === 1) {color="blue"} %>
 
-      <td style="background-color: <%= color%>" id="<%= item.id %>" day="<%= item.day %>" hour="<%= item.hour %>" onclick=change(event)>
+      <td style="background-color: <%= color%>" id="<%= item.id %>" day="<%= item.day %>" hour="<%= item.hour %>" overtime="<%= item.overtime %>" substit="<%= item.substit %>" dropped="<%= item.dropped %>" doctor="<%= item.doctor %>" onclick=change(event)>
         <%=item.class%>
-        <!-- <input type="checkbox" id="myCheckbox">
-        <input type="checkbox" id="myCheckbox">
-        <input type="checkbox" id="myCheckbox">
-        <input type="checkbox" id="myCheckbox"> -->
+        <!-- <input type="checkbox" id="overtime">
+        <input type="checkbox" id="substit">
+        <input type="checkbox" id="dropped">
+        <input type="checkbox" id="doctor"> -->
+        <select name="color">
+          <option value="normal">Normální</option>
+          <option value="overtime">Přesčasová</option>
+          <option value="substit">Suplování</option>
+          <option value="dropped">Odpadnutá</option>
+          <option value="doctor">Doktor</option>
+        </select>
       </td>
 
       <%})%>
     </tr>
   </table>
   <script>
-    //naveseni eventhandleru na right click
     const tdElements = document.querySelectorAll("td");
+    //naveseni eventhandleru na right click
     tdElements.forEach((td) => {
 
       td.addEventListener('contextmenu', function(ev) {
+        console.log(ev.target)
         ev.preventDefault();
         dialog.style.display = "block"; // Zobrazíme dialog
         return false;
       }, false);
     })
-    //zastaveni probublavani checkboxu
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach(checkbox => {
-      checkbox.addEventListener("click", function(event) {
+    //zastaveni probublavani
+    const selects = document.querySelectorAll('select');
+    console.warn(selects)
+    selects.forEach(select => {
+      select.addEventListener("click", function(event) {
+        // alert(55)
         event.stopPropagation(); // Zastaví další šíření události
         // Toto je event handler pro kliknutí na checkbox
+      });
+      //change handler
+      select.addEventListener("change", function(event) {
+        const selectedValue = select.value; // Získání vybrané hodnoty
+        console.log('Vybráno: ' + selectedValue);
+        //nastaveni bgcolor
+        let color;
+        switch (selectedValue) {
+          case "overtime":
+            color = "red";
+            break;
+          case "substit":
+            color = "yellow"
+            break;
+          case "dropped":
+            color = "grey"
+            break;
+          case "doctor":
+            color = "lightblue"
+            break;
+            // Add more cases as needed
+          default:
+            color = "transparent"
+        }
+        event.target.parentElement.style.backgroundColor = color
+        // console.log(event.target.parentElement)
       });
     })
 
 
+
+    //naveseni eventhandleru na hover
+
+    tdElements.forEach((td) => {
+
+      td.addEventListener('mouseover', function(ev) {
+        console.log(ev.target.children)
+        ev.target.children[0].style.display = "block"
+        // ev.target.children[1].style.display = "block"
+        // ev.target.children[2].style.display = "block"
+        // ev.target.children[3].style.display = "block"
+        // dialog.style.left = ev.pageX + "px";
+        // dialog.style.top = ev.pageY + "px";
+        // dialog.style.display = "block";
+        return false;
+      }, false);
+
+      td.addEventListener('mouseleave', function(ev) {
+        ev.target.children[0].style.display = "none"
+        // ev.target.children[1].style.display = "none"
+        // ev.target.children[2].style.display = "none"
+        // ev.target.children[3].style.display = "none"
+        //dialog.style.display = "none"; // Zobrazíme dialog
+        return false;
+      }, false);
+    })
 
 
     // zmena predmetu
@@ -297,7 +364,7 @@
 
 
   <!-- dialog -->
-  <div id="myDialog" class="dialog">
+  <!-- <div id="myDialog" class="dialog">
     <h2>Dialog s checkboxem</h2>
     <label for="overtime">Přesčasová</label>
     <input type="checkbox" id="overtime">
@@ -316,18 +383,18 @@
     <button style="background-color: rgb(255, 247, 0)" id="yellow">Suplovaná</button>
     <button style="background-color: grey" id="grey">Odpadnutá</button>
     <button style="background-color: blue" id="blue">Lékař</button>
-  </div>
+  </div> -->
   <script>
     // Získáme reference na prvky HTML
-    const openButton = document.getElementById("closeDialog");
-    const dialog = document.getElementById("myDialog");
-    const overtime = document.getElementById("overtime");
-    const substit = document.getElementById("substit");
-    const dropped = document.getElementById("dropped");
-    const doctor = document.getElementById("doctor");
+    // const closeButton = document.getElementById("closeDialog");
+    // const dialog = document.getElementById("myDialog");
+    // const overtime = document.getElementById("overtime");
+    // const substit = document.getElementById("substit");
+    // const dropped = document.getElementById("dropped");
+    // const doctor = document.getElementById("doctor");
 
     // Přidáme obsluhu události pro tlačítko Otevřít dialog
-    openButton.addEventListener("click", () => {
+    closeButton.addEventListener("click", () => {
       dialog.style.display = "none"; // Zobrazíme dialog
     });
 
