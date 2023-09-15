@@ -116,6 +116,34 @@ const newValues = {
 
 })
 
+//update atributu rozvrhu
+router.post('/atributupdate', function (request, response, next) {
+
+
+  console.log(request.body.id)
+  console.log(request.body.data)
+
+  // Aktualizace záznamu v tabulce
+const idToUpdate = request.body.id; // ID záznamu, který chcete aktualizovat
+const newValues = {
+  overtime: request.body.data
+};
+  // SQL dotaz pro vložení dat do databáze
+  const sqlQuery = 'UPDATE statement SET ? WHERE id = ?';
+  connection.query(sqlQuery, [newValues, idToUpdate], (err, result) => {
+    if (err) {
+      console.error('Chyba při aktualizaci záznamu: ' + err.stack);
+      return;
+    }
+    console.log('Změna záznamu s id ' + idToUpdate + ' atributu proběhla úspěšně.');
+  });
+
+  
+  // response.render('newtimetable', { data });
+  // response.send("hotovo")
+
+})
+
 // statement
 router.get('/statement', (req, res) => {
   connection.query('SELECT * FROM statement', (error, results, fields) => {
@@ -135,7 +163,7 @@ router.get('/iterace', (req, res) => {
       console.error(error);
       return;
     }
-    console.log(results)
+    // console.log(results)
     res.render('iterace', { results });
 
   })

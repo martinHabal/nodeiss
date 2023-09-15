@@ -5,79 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="../scripts/script1.js"></script>
-  <style>
-    /* Styly pro rozvrh */
-    table {
-      /* border-collapse: collapse; */
-      width: 100%;
-    }
-
-    th,
-    td {
-      border: 1px solid black;
-      padding: 8px;
-      text-align: center;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    th {
-      background-color: #f2f2f2;
-    }
-
-    /* dialog */
-    .dialog {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: white;
-      padding: 20px;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    }
-
-
-    /* checkbox */
-    /* Skryjeme výchozí vzhled checkboxu */
-    select {
-      display: none;
-      float: right;
-    }
-  </style>
-
+  <script type="text/javascript" src="js.js"></script>
+  <link rel="stylesheet" href="css.css">
+  
 </head>
 
 <body>
   <button><a href="/">home</a></button>
 
-  <script>
-   
-
-
-    // Získání aktuálního data
-    const currentDate = new Date();
-
-    // Získání roku, měsíce a dne
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth() + 1; // Měsíce jsou indexovány od 0 (leden) do 11 (prosinec)
-    const currentDay = currentDate.getDate();
-
-    // Zobrazení aktuálního roku, měsíce a dne
-    console.log(`Aktuální rok: ${currentYear}`);
-    console.log(`Aktuální měsíc: ${currentMonth}`);
-    console.log(`Aktuální den: ${currentDay}`);
-
-    // Získání prvního dne měsíce následujícího měsíce
-    const firstDayOfNextMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
-
-    // Posun na poslední den aktuálního měsíce
-    firstDayOfNextMonth.setDate(firstDayOfNextMonth.getDate() - 1);
-
-    // Získání počtu dní v aktuálním měsíci
-    const numberOfDaysInMonth = firstDayOfNextMonth.getDate();
-  </script>
   <h3>
     <% const currentDate=new Date(); %>
     <% const currentYear=currentDate.getFullYear(); %>
@@ -157,7 +92,7 @@
       <td>
         <%=day%>
       </td>
-      <%} else if(index===33 || index===88 || index===143 || index===196 || index===253) {%>
+      <%} else if(index===33 || index===88 || index===143 || index===198 || index===253) {%>
       <%day="Čtvrtek" %>
     </tr>
     <tr>
@@ -168,7 +103,7 @@
       <td>
         <%=day%>
       </td>
-      <%}else if(index===44 || index===99 || index===154 || index===207 || index===264) {%>
+      <%}else if(index===44 || index===99 || index===154 || index===209 || index===264) {%>
       <%day="Pátek" %>
     </tr>
     <tr>
@@ -179,7 +114,7 @@
       <td>
         <%=day%>
       </td>
-      <%}else if(index===55 || index==110 || index===165 || index===218 || index===275) {%>
+      <%}else if(index===55 || index==110 || index===165 || index===220 || index===277) {%>
       <%day="Sobota" %>
     </tr>
     <tr>
@@ -239,127 +174,11 @@
       <%})%>
     </tr>
   </table>
+  <div id="results">
+    <p>Přesčasové</p>
+  </div>
   <script>
-    const tdElements = document.querySelectorAll("td");
-    //naveseni eventhandleru na right click
-    tdElements.forEach((td) => {
-
-      td.addEventListener('contextmenu', function(ev) {
-        console.log(ev.target)
-        ev.preventDefault();
-        dialog.style.display = "block"; // Zobrazíme dialog
-        return false;
-      }, false);
-    })
-    //zastaveni probublavani
-    const selects = document.querySelectorAll('select');
-    console.warn(selects)
-    selects.forEach(select => {
-      select.addEventListener("click", function(event) {
-        // alert(55)
-        event.stopPropagation(); // Zastaví další šíření události
-        // Toto je event handler pro kliknutí na checkbox
-      });
-      //change handler
-      select.addEventListener("change", function(event) {
-        const selectedValue = select.value; // Získání vybrané hodnoty
-        console.log('Vybráno: ' + selectedValue);
-        //nastaveni bgcolor
-        let color;
-        switch (selectedValue) {
-          case "overtime":
-            color = "red";
-            break;
-          case "substit":
-            color = "yellow"
-            break;
-          case "dropped":
-            color = "grey"
-            break;
-          case "doctor":
-            color = "lightblue"
-            break;
-            // Add more cases as needed
-          default:
-            color = "transparent"
-        }
-        event.target.parentElement.style.backgroundColor = color
-        // console.log(event.target.parentElement)
-      });
-    })
-
-
-
-    //naveseni eventhandleru na hover
-
-    tdElements.forEach((td) => {
-
-      td.addEventListener('mouseover', function(ev) {
-        console.log(ev.target.children)
-        ev.target.children[0].style.display = "block"
-        // ev.target.children[1].style.display = "block"
-        // ev.target.children[2].style.display = "block"
-        // ev.target.children[3].style.display = "block"
-        // dialog.style.left = ev.pageX + "px";
-        // dialog.style.top = ev.pageY + "px";
-        // dialog.style.display = "block";
-        return false;
-      }, false);
-
-      td.addEventListener('mouseleave', function(ev) {
-        ev.target.children[0].style.display = "none"
-        // ev.target.children[1].style.display = "none"
-        // ev.target.children[2].style.display = "none"
-        // ev.target.children[3].style.display = "none"
-        //dialog.style.display = "none"; // Zobrazíme dialog
-        return false;
-      }, false);
-    })
-
-
-    // zmena predmetu
-    function change() {
-      console.log(event.target)
-
-      let data = prompt("Zadejte předmět")
-      if (data) {
-        // URL API, kam bude odeslán požadavek
-        const apiUrl = '/iteraceupdate';
-
-        // Data, která budou odeslána jako součást požadavku (může být objekt nebo FormData)
-        const requestData = {
-          id: event.target.id,
-          data: data
-        };
-
-        // Konfigurace pro POST požadavek
-        const requestOptions = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json' // Změňte na 'application/x-www-form-urlencoded', pokud odesíláte FormData
-          },
-          body: JSON.stringify(requestData) // Změňte na new URLSearchParams(requestData) pro 'application/x-www-form-urlencoded'
-        };
-
-        // Odeslání požadavku pomocí funkce fetch
-        fetch(apiUrl, requestOptions)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Chyba při komunikaci s API.');
-            }
-            return response.json();
-          })
-          .then(data => {
-            console.log('Úspěšně zpracována odpověď z API:', data);
-            // Zde můžete provést další zpracování dat z API
-          })
-          .catch(error => {
-            console.error('Chyba:', error);
-            // Zde můžete zpracovat chybu a poskytnout zpětnou vazbu uživateli
-          });
-        location.reload()
-      }
-    }
+    
   </script>
 
 
@@ -394,19 +213,19 @@
     // const doctor = document.getElementById("doctor");
 
     // Přidáme obsluhu události pro tlačítko Otevřít dialog
-    closeButton.addEventListener("click", () => {
-      dialog.style.display = "none"; // Zobrazíme dialog
-    });
+    // closeButton.addEventListener("click", () => {
+    //   dialog.style.display = "none"; // Zobrazíme dialog
+    // });
 
     // Přidáme obsluhu události pro checkbox
-    checkbox.addEventListener("change", () => {
-      const label = document.querySelector("label[for='myCheckbox']");
-      if (checkbox.checked) {
-        label.textContent = "Skrytý text je zobrazen.";
-      } else {
-        label.textContent = "Zobrazit text";
-      }
-    });
+    // checkbox.addEventListener("change", () => {
+    //   const label = document.querySelector("label[for='myCheckbox']");
+    //   if (checkbox.checked) {
+    //     label.textContent = "Skrytý text je zobrazen.";
+    //   } else {
+    //     label.textContent = "Zobrazit text";
+    //   }
+    // });
   </script>
   <h2>Legenda</h2>
   <p>Bílé pole je základní hodina definována podle rozvrhu konkrétním předmětem v konkrétní třídě.</p>

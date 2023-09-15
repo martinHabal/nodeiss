@@ -20,6 +20,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.static(path.join(__dirname, 'images')));//umožní přístup k obrázkům
 app.use(express.static(path.join(__dirname, 'css')));
+app.use(express.static(path.join(__dirname, 'scripts')));
 
 app.use(express.json());
 
