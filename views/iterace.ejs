@@ -41,6 +41,7 @@
   <% day="Pondělí" %>
   <% hour=0 %>
   <% date=1 %>
+  <% overtime=0 %>
   <table>
     <tr>
       <th></th>
@@ -69,6 +70,8 @@
         <%=day%>
       </td>
       <% results.forEach((item, index)=> {%>
+
+        <% if(item.overtime === 1) {overtime++}%>
 
       <% if(index===11 || index===66 || index===121 || index===176 || index===231) {%>
       <%day="Úterý" %>
@@ -154,8 +157,8 @@
       <% if(item.overtime === 1) {color="red"}
  else if(item.substit === 1) {color="yellow"}
  else if(item.dropped === 1) {color="grey"}
- else if(item.doctor === 1) {color="blue"} %>
-
+ else if(item.doctor === 1) {color="blue"}
+ else if(item.normal === 1) {color="transparent"} %>
       <td style="background-color: <%= color%>" id="<%= item.id %>" day="<%= item.day %>" hour="<%= item.hour %>" overtime="<%= item.overtime %>" substit="<%= item.substit %>" dropped="<%= item.dropped %>" doctor="<%= item.doctor %>" onclick=change(event)>
         <%=item.class%>
         <!-- <input type="checkbox" id="overtime">
@@ -163,6 +166,7 @@
         <input type="checkbox" id="dropped">
         <input type="checkbox" id="doctor"> -->
         <select name="color">
+          <option value="empty"></option>
           <option value="normal">Normální</option>
           <option value="overtime">Přesčasová</option>
           <option value="substit">Suplování</option>
@@ -175,7 +179,7 @@
     </tr>
   </table>
   <div id="results">
-    <p>Přesčasové</p>
+    <p>Přesčasové</p> <%= overtime %>
   </div>
   <script>
     

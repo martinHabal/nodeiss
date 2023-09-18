@@ -120,14 +120,49 @@ const newValues = {
 router.post('/atributupdate', function (request, response, next) {
 
 
+  console.log("req" + request.body.data)
   console.log(request.body.id)
-  console.log(request.body.data)
 
   // Aktualizace záznamu v tabulce
 const idToUpdate = request.body.id; // ID záznamu, který chcete aktualizovat
-const newValues = {
-  overtime: request.body.data
-};
+let newValues;
+if(request.body.data === "overtime") {
+
+  newValues = {
+    overtime: 1,
+    substit: 0,
+    dropped: 0,
+    doctor: 0
+  };
+} else if (request.body.data === "substit") {
+  newValues = {
+    overtime: 0,
+    substit: 1,
+    dropped: 0,
+    doctor: 0
+  };
+} else if (request.body.data === "dropped") {
+  newValues = {
+    overtime: 0,
+    substit: 0,
+    dropped: 1,
+    doctor: 0
+  };
+}else if (request.body.data === "doctor") {
+  newValues = {
+    overtime: 0,
+    substit: 0,
+    dropped: 0,
+    doctor: 1
+  };
+}else if (request.body.data === "normal") {
+  newValues = {
+    overtime: 0,
+    substit: 0,
+    dropped: 0,
+    doctor: 0
+  };
+}
   // SQL dotaz pro vložení dat do databáze
   const sqlQuery = 'UPDATE statement SET ? WHERE id = ?';
   connection.query(sqlQuery, [newValues, idToUpdate], (err, result) => {
@@ -135,7 +170,7 @@ const newValues = {
       console.error('Chyba při aktualizaci záznamu: ' + err.stack);
       return;
     }
-    console.log('Změna záznamu s id ' + idToUpdate + ' atributu proběhla úspěšně.');
+    console.log('Změna záznamu s id: ' + idToUpdate + ' atributu proběhla úspěšně. Atribut byl nahrazen těmito daty: ' + request.body.data);
   });
 
   

@@ -61,38 +61,40 @@
 
     </tr>
     <% if(results.length===0) { %>
-      <h1>Databáze je prázdná</h1>
-      <% } else {%>
+    <h1>Databáze je prázdná</h1>
+    <% } else {%>
 
 
-        <% let count=0 %>
-        
-          <tr>
-            <% results.forEach((item, index)=> { %>
-              
-                <% count ++ %>
-                  <td id="<%= item.id %>" day="<%= item.day %>" hour="<%= item.hour %>" onclick=change(event)>
-                    <%= item.data %>
-                  </td>
-                  <% if(count==15) {  %>
-          </tr>
-          <tr>
-            <%count=0}%>
-            <% if(index === 74){%>
-</tr><td>Sudý</td><tr>
-              <% } %>
+    <% let count=0 %>
 
-              <% }) %>
-                <% } %>
+    <tr>
+      <% results.forEach((item, index)=> { %>
 
-          </tr>
+      <% count ++ %>
+      <td id="<%= item.id %>" day="<%= item.day %>" hour="<%= item.hour %>" onclick=change(event)>
+        <%= item.data %>
+      </td>
+      <% if(count==15) {  %>
+    </tr>
+    <tr>
+      <%count=0}%>
+      <% if(index === 74){%>
+    </tr>
+    <td>Sudý</td>
+    <tr>
+      <% } %>
+
+      <% }) %>
+      <% } %>
+
+    </tr>
 
 
 
 
   </table>
 
-  
+
   <script>
     function change() {
       console.log(event.target)
@@ -133,9 +135,8 @@
           console.error('Chyba:', error);
           // Zde můžete zpracovat chybu a poskytnout zpětnou vazbu uživateli
         });
-        location.reload()
+      location.reload()
     }
-    
   </script>
 </body>
 
