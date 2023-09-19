@@ -102,6 +102,7 @@ const newValues = {
 };
   // SQL dotaz pro vložení dat do databáze
   const sqlQuery = 'UPDATE timetable_odd SET ? WHERE id = ?';
+  
   connection.query(sqlQuery, [newValues, idToUpdate], (err, result) => {
     if (err) {
       console.error('Chyba při aktualizaci záznamu: ' + err.stack);

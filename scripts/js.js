@@ -92,11 +92,20 @@ window.onload = (event) => {
 
             return false;
         }, false);
+
+        // td.addEventListener('click', change, false);
+
+        td.addEventListener('click', function (event) {
+            change(event)
+
+// alert(event)
+            return false;
+        }, false);
     })
 
 
     // zmena predmetu
-    function change() {
+    function change(event) {
         console.log(event.target)
 
         let data = prompt("Zadejte předmět")
@@ -136,6 +145,7 @@ window.onload = (event) => {
                     // Zde můžete zpracovat chybu a poskytnout zpětnou vazbu uživateli
                 });
             location.reload()
+            return false;
         }
     }
 
