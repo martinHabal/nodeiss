@@ -23,7 +23,7 @@ window.onload = (event) => {
     // Získání počtu dní v aktuálním měsíci
     const numberOfDaysInMonth = firstDayOfNextMonth.getDate();
 
-    const tdElements = document.querySelectorAll("td");
+    const tdElements = document.querySelectorAll(".data");
     //naveseni eventhandleru na right click
     tdElements.forEach((td) => {
 
@@ -36,6 +36,7 @@ window.onload = (event) => {
     })
     //zastaveni probublavani
     const selects = document.querySelectorAll('select');
+    const paraTitles = document.querySelectorAll('p');
     console.warn(selects)
     selects.forEach(select => {
         select.addEventListener("click", function (event) {
@@ -78,20 +79,20 @@ window.onload = (event) => {
 
     //naveseni eventhandleru na hover
 
-    tdElements.forEach((td) => {
+    paraTitles.forEach((td) => {
 
-        td.addEventListener('mouseover', function (ev) {
-            // console.log(ev.target.children)
-            ev.target.children[0].style.visibility = "visible"
+        // td.addEventListener('mouseover', function (ev) {
+        //     // console.log(ev.target.children)
+        //     ev.target.children[0].style.visibility = "visible"
 
-            return false;
-        }, false);
+        //     return false;
+        // }, false);
 
-        td.addEventListener('mouseleave', function (ev) {
-            ev.target.children[0].style.visibility = "hidden"
+        // td.addEventListener('mouseleave', function (ev) {
+        //     ev.target.children[0].style.visibility = "hidden"
 
-            return false;
-        }, false);
+        //     return false;
+        // }, false);
 
         // td.addEventListener('click', change, false);
 
@@ -103,12 +104,50 @@ window.onload = (event) => {
         }, false);
     })
 
+    tdElements.forEach((td) => {
+
+        // td.addEventListener('mouseover', function (ev) {
+        //     // console.log(ev.target.children)
+        //     ev.target.children[0].style.visibility = "visible"
+
+        //     return false;
+        // }, false);
+
+        // td.addEventListener('mouseleave', function (ev) {
+        //     ev.target.children[0].style.visibility = "hidden"
+
+        //     return false;
+        // }, false);
+
+        // td.addEventListener('click', change, false);
+
+        td.addEventListener('click', function (event) {
+            let color = event.target.style.backgroundColor
+            console.log(color)
+            if(color === "hotpink") {
+                event.target.style.backgroundColor = "gold"
+            } else if(color === "gold") {
+                event.target.style.backgroundColor = "lightgrey"
+            } else if(color === "lightgrey") {
+                event.target.style.backgroundColor = "deepskyblue"
+            } else if(color === "deepskyblue") {
+                event.target.style.backgroundColor = "floralwhite"
+            } else if(color === "floralwhite") {
+                event.target.style.backgroundColor = "hotpink"
+            }
+
+
+// alert(event)
+            return false;
+        }, false);
+    })
+
 
     // zmena predmetu
     function change(event) {
-        console.log(event.target)
+        console.log(event.target.style)
 
-        let data = prompt("Zadejte předmět")
+        let data = prompt("Zadejte předmět", event.target.textContent)
         if (data) {
             // URL API, kam bude odeslán požadavek
             const apiUrl = '/iteraceupdate';
@@ -149,7 +188,56 @@ window.onload = (event) => {
         }
     }
 
-    // zmena atributu
+    //nastaveni prvniho datumu
+    function firstDateSet() {
+       
+
+        let data = prompt("Zadejte datum")
+        if (data) {
+            // URL API, kam bude odeslán požadavek
+            const apiUrl = '/firstDaySet';
+
+            // Data, která budou odeslána jako součást požadavku (může být objekt nebo FormData)
+            const requestData = {
+                id: 1,
+                data: data
+            };
+
+            // Konfigurace pro POST požadavek
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' // Změňte na 'application/x-www-form-urlencoded', pokud odesíláte FormData
+                },
+                body: JSON.stringify(requestData) // Změňte na new URLSearchParams(requestData) pro 'application/x-www-form-urlencoded'
+            };
+
+            // Odeslání požadavku pomocí funkce fetch
+            fetch(apiUrl, requestOptions)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Chyba při komunikaci s API.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Úspěšně zpracována odpověď z API:', data);
+                    // Zde můžete provést další zpracování dat z API
+                })
+                .catch(error => {
+                    console.error('Chyba:', error);
+                    // Zde můžete zpracovat chybu a poskytnout zpětnou vazbu uživateli
+                });
+            location.reload()
+            return false;
+        }
+    }
+
+    let firstDate = document.getElementById("firstDate")
+    firstDate.addEventListener("click", () => firstDateSet())
+
+
+    // zmena atributu - prescasova, opdadla...
     function changeAttr(id, state) {
         console.log("ev" + event.target)
         console.log(state)
@@ -208,7 +296,7 @@ window.onload = (event) => {
                     console.error('Chyba:', error);
                     // Zde můžete zpracovat chybu a poskytnout zpětnou vazbu uživateli
                 });
-            location.reload()
+            // location.reload()
         }
     }
 

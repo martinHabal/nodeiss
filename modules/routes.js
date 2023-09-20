@@ -9,8 +9,8 @@ router.use(bodyParser.json());
 
 const connection = mysql.createConnection({
   host: 'localhost', // Název nebo IP adresa serveru databáze
-  user: 'monty', // Uživatelské jméno
-  password: 'monty88', // Heslo
+  user: 'mh', // Uživatelské jméno
+  password: 'befelemepeseveze44', // Heslo
   database: 'timetable', // Název databáze
   port: 3001
 });
@@ -19,7 +19,7 @@ const connection = mysql.createConnection({
 // Definice rout a obslužných funkcí
 router.get('/timetable', (req, res) => {
 
-  connection.query('SELECT * FROM timetable_odd', (error, results, fields) => {
+  connection.query('SELECT * FROM timetable_odd INNER JOIN options', (error, results, fields) => {
     if (error) {
       console.error(error);
       return;
@@ -102,6 +102,29 @@ const newValues = {
 };
   // SQL dotaz pro vložení dat do databáze
   const sqlQuery = 'UPDATE timetable_odd SET ? WHERE id = ?';
+
+  connection.query(sqlQuery, [newValues, idToUpdate], (err, result) => {
+    if (err) {
+      console.error('Chyba při aktualizaci záznamu: ' + err.stack);
+      return;
+    }
+    console.log('Záznam byl úspěšně aktualizován.');
+  });
+});
+  //update rozvrhu
+router.post('/firstDaySet', function (request, response, next) {
+
+
+  console.log(request.body.id)
+  console.log(request.body.data)
+
+  // Aktualizace záznamu v tabulce
+const idToUpdate = 1; // ID záznamu, který chcete aktualizovat
+const newValues = {
+  first_day: request.body.data
+};
+  // SQL dotaz pro vložení dat do databáze
+  const sqlQuery = 'UPDATE options SET ? WHERE id = ?';
   
   connection.query(sqlQuery, [newValues, idToUpdate], (err, result) => {
     if (err) {
@@ -205,6 +228,8 @@ router.get('/iterace', (req, res) => {
   })
 });
 
+
+//update tridy
 router.post('/iteraceupdate', function (request, response, next) {
 
 

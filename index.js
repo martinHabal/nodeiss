@@ -2,10 +2,10 @@ const express = require('express')//import framework express
 const ejs = require('ejs');//šablonovací knihovna
 const mysql = require('mysql2');//NPM I MYSQL2//konektor na DB
 const path = require('path');//pro manipulaci s cestami, ať už se jedná o absolutní cesty, relativní cesty
-const bodyParser = require('body-parser');//imort bodyParseru
+const bodyParser = require('body-parser');//import bodyParseru
 
 const app = express()//app běží na expressu
-const port = 80//port, na kterém běží aplikace
+const port = 3005//port, na kterém běží aplikace
 
 const http = require('http').Server(app)//chat
 const io = require('socket.io')(http);//import socket knihovny pro chat
@@ -27,13 +27,13 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));//dekoduje data poslana pres POST
 
 
-const connection = mysql.createConnection({
-  host: 'localhost', // Název nebo IP adresa serveru databáze
-  user: 'monty', // Uživatelské jméno
-  password: 'monty88', // Heslo
-  database: 'timetable', // Název databáze
-  port: 3001
-});
+// const connection = mysql.createConnection({
+//   host: 'localhost', // Název nebo IP adresa serveru databáze
+//   user: 'mh', // Uživatelské jméno
+//   password: 'befelemepeseveze44', // Heslo
+//   database: 'timetable', // Název databáze
+//   port: 3001
+// });
 
 
 app.get('/newuser', (req, res) => {
@@ -155,6 +155,6 @@ io.on('connection', (socket) => {
 // })
 
 //tak kvuli tomu chatu nahradim app za http
-http.listen(80, () => {
+http.listen(3005, () => {
   console.log('Server is running on port 3000');
 });

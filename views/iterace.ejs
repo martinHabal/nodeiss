@@ -7,7 +7,7 @@
   <title>Document</title>
   <script type="text/javascript" src="js.js"></script>
   <link rel="stylesheet" href="css.css">
-  
+
 </head>
 
 <body>
@@ -29,18 +29,70 @@
     <% const dayOfWeekNumber=currentDate.getDay();%>
     <% const dayOfWeekName=daysOfWeek[dayOfWeekNumber];%>
 
-    <%= currentDay + ". " + currentMonth + ". " + currentYear
+    
+
+    <%
+                                                
+                                                    
+                                                  
+                                                    
+                                                    // Získání aktuálního dne v roce (1-366)
+                                                    const dayOfYear = getDayOfYear(currentDate);
+                                                    
+                                                    // Funkce pro získání čísla týdne pro konkrétní datum
+                                                    function getWeekNumber(date) {
+                                                      const firstDayOfYear = new Date(date.getFullYear(), 0, 1); // První den roku
+                                                      const daysSinceFirstDay = dayOfYear - 1; // Počet dní od prvního dne roku
+                                                      const weekNumber = Math.ceil((daysSinceFirstDay + firstDayOfYear.getDay() + 1) / 7);
+                                                      return weekNumber;
+                                                    }
+                                                    
+                                                    // Získání čísla týdne pro aktuální datum
+                                                    const currentWeekNumber = getWeekNumber(currentDate);
+                                                    
+                                                    // Zjištění, zda je týden sudý nebo lichý
+                                                    function oddEven() {
+                                                      if (currentWeekNumber % 2 === 0) {
+                                                        return `Aktuální týden (${currentWeekNumber}) je sudý.`
+                                                        console.log(`Aktuální týden (${currentWeekNumber}) je sudý.`);
+                                                      } else {
+                                                        return `Aktuální týden (${currentWeekNumber}) je lichý.`
+                                                        console.log(`Aktuální týden (${currentWeekNumber}) je lichý.`);
+                                                      }
+
+                                                    }
+                                                    
+                                                    // Funkce pro získání čísla dne v roce pro konkrétní datum
+                                                    function getDayOfYear(date) {
+                                                      const start = new Date(date.getFullYear(), 0, 0);
+                                                      const diff = date - start;
+                                                      const oneDay = 1000 * 60 * 60 * 24; // Počet milisekund v jednom dni
+                                                      return Math.floor(diff / oneDay);
+                                                    }
+%>
+
+<%= currentDay + ". " + currentMonth + ". " + currentYear
                                                     + " a tento měsíc má " + numberOfDaysInMonth + " dní" + " dnes je "
-                                                    + dayOfWeekName %>
+                                                    + dayOfWeekName + " " + oddEven()%>
   </h3>
 
+
+
+  <!-- problemy:
+
+  jak vyresit aby se menil datum? zatim si proste nastavi prvni datum a zybtek se dopocita
+  mam eventhandler i na td kde to nechci, treba ten prvni den
+  nejak poresit aby si na zacatku pouze nastavili sudej a lichej a nemuseli to tam zadavat duplicitne
+  ten firstday taky musim predelat
+  jak poresit historii? -->
 
   <h1>
     iterace
   </h1>
   <% day="Pondělí" %>
   <% hour=0 %>
-  <% date=1 %>
+  <% date=results[results.length - 1].class%>
+  <% normal=0 %>
   <% overtime=0 %>
   <% substit=0 %>
   <% dropped=0 %>
@@ -65,7 +117,7 @@
 
     <tr>
 
-      <td>
+      <td id="firstDate">
         <%=date%>
         <% date++ %>
       </td>
@@ -74,10 +126,11 @@
       </td>
       <% results.forEach((item, index)=> {%>
 
-        <% if(item.overtime === 1) {overtime++}
+      <% if(item.overtime === 1) {overtime++}
         else if(item.substit === 1) {substit++}
         else if(item.dropped === 1) {dropped++}
         else if(item.doctor === 1) {doctor++}
+        else {normal++}
         %>
 
       <% if(index===11 || index===66 || index===121 || index===176 || index===231) {%>
@@ -159,40 +212,41 @@
 
 
       <%}%>
-<% color = "transparent" %>
+<% color = "FloralWhite" %>
 
-      <% if(item.overtime === 1) {color="red"}
- else if(item.substit === 1) {color="yellow"}
- else if(item.dropped === 1) {color="grey"}
- else if(item.doctor === 1) {color="blue"}
- else if(item.normal === 1) {color="transparent"} %>
-      <td style="background-color: <%= color%>" id="<%= item.id %>" day="<%= item.day %>" hour="<%= item.hour %>" overtime="<%= item.overtime %>" substit="<%= item.substit %>" dropped="<%= item.dropped %>" doctor="<%= item.doctor %>">
-        <%=item.class%>
+      <% if(item.overtime === 1) {color="HotPink"}
+ else if(item.substit === 1) {color="Gold"}
+ else if(item.dropped === 1) {color="LightGrey"}
+ else if(item.doctor === 1) {color="DeepSkyBlue"}
+ else if(item.normal === 1) {color="FloralWhite"} %>
+      <td class="data" style="background-color: <%= color%>" id="<%= item.id %>" day="<%= item.day %>" hour="<%= item.hour %>" overtime="<%= item.overtime %>" substit="<%= item.substit %>" dropped="<%= item.dropped %>" doctor="<%= item.doctor %>">
+        <p><%=item.class%></p>
         <!-- <input type="checkbox" id="overtime">
         <input type="checkbox" id="substit">
         <input type="checkbox" id="dropped">
         <input type="checkbox" id="doctor"> -->
-        <select name="color">
+        <!-- <select name="color">
           <option value="empty"></option>
           <option value="normal">Normální</option>
           <option value="overtime">Přesčasová</option>
           <option value="substit">Suplování</option>
           <option value="dropped">Odpadnutá</option>
           <option value="doctor">Doktor</option>
-        </select>
+        </select> -->
       </td>
 
       <%})%>
     </tr>
   </table>
   <div id="results">
+    <p>Normální: <%= normal %></p>
     <p>Přesčasové: <%= overtime %></p>
     <p>Suplované: <%= substit %></p>
     <p>Odpadnuté: <%= dropped %></p>
-    <p>Doktor: <%= doctor %></p> 
+    <p>Doktor: <%= doctor %></p>
   </div>
   <script>
-    
+
   </script>
 
 
@@ -250,3 +304,4 @@
 
 </html>
 <!-- chybi mi na konci break, kdyz by bylo vic dat, ale tech vic stejne nemuze byt ale je to osetreni, a ten kod samozrejme musim zkratit -->
+<!-- ok, bude se barva menit jen na kliknuti a napise se tam co je to za hodinu -->

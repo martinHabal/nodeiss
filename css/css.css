@@ -1,9 +1,10 @@
  /* Styly pro rozvrh */
  table {
     /* border-collapse: collapse; */
-    width: 100%;
-    max-width: 80%;
-    float: left;
+    /* width: 100%; */
+    max-width: 73%;
+    margin: auto;
+    /* float: left; */
   }
 
   th,
@@ -13,6 +14,7 @@
     text-align: center;
     cursor: pointer;
     border-radius: 5px;
+    height: 60px;
   }
 
   th {
@@ -38,4 +40,23 @@
     /* display: none; */
     visibility: hidden;
     float: right;
+    position: relative;
+    top: 20px;
+  }
+
+  /* Základní styl pro element */
+p {
+    /* width: 100px;
+    height: 100px; */
+    /* background-color: #3498db; */
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    /* line-height: 100px; */
+    transition: transform 0.3s ease; /* Přechodová vlastnost pro transformaci */
+  }
+  
+  /* Styl pro element při hover efektu */
+  p:hover {
+    transform: scale(1.5); /* Použití transformace pro zvětšení elementu */
   }
