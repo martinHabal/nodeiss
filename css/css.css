@@ -15,6 +15,7 @@
     cursor: pointer;
     border-radius: 5px;
     height: 60px;
+    padding-bottom: 0;
   }
 
   th {
@@ -57,6 +58,11 @@ p {
   }
   
   /* Styl pro element při hover efektu */
-  p:hover {
+  p.class:hover {
     transform: scale(1.5); /* Použití transformace pro zvětšení elementu */
+  }
+
+  .clause {
+    font-size: 18px;
+    margin: 0;
   }
