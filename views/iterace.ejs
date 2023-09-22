@@ -126,10 +126,10 @@
       </td>
       <% results.forEach((item, index)=> {%>
 
-      <% if(item.overtime === 1) {overtime++}
-        else if(item.substit === 1) {substit++}
-        else if(item.dropped === 1) {dropped++}
-        else if(item.doctor === 1) {doctor++}
+      <% if(item.state === "overtime") {overtime++}
+        else if(item.state === "substit") {substit++}
+        else if(item.dropped === "dropped") {dropped++}
+        else if(item.doctor === "doctor") {doctor++}
         else {normal++}
         %>
 
@@ -214,11 +214,11 @@
       <%}%>
 <% color = "limegreen" %>
 
-      <% if(item.overtime === 1) {color="HotPink"}
- else if(item.substit === 1) {color="Gold"}
- else if(item.dropped === 1) {color="LightGrey"}
- else if(item.doctor === 1) {color="DeepSkyBlue"}
- else if(item.normal === 1) {color="limegreen"} %>
+      <% if(item.state === "overtime") {color="HotPink"}
+ else if(item.state === "substit") {color="Gold"}
+ else if(item.state === "dropped") {color="LightGrey"}
+ else if(item.state === "doctor") {color="DeepSkyBlue"}
+ else if(item.state === "normal") {color="limegreen"} %>
       <td class="data" style="background-color: <%= color%>" id="<%= item.id %>" day="<%= item.day %>" hour="<%= item.hour %>" overtime="<%= item.overtime %>" substit="<%= item.substit %>" dropped="<%= item.dropped %>" doctor="<%= item.doctor %>"> 
         <%=item.class%>  
       </td>

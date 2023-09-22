@@ -24,83 +24,14 @@ window.onload = (event) => {
     const numberOfDaysInMonth = firstDayOfNextMonth.getDate();
 
     const tdElements = document.querySelectorAll(".data");
-    //naveseni eventhandleru na right click
-    // tdElements.forEach((td) => {
-
-    //     td.addEventListener('contextmenu', function (ev) {
-    //         console.log(ev.target)
-    //         ev.preventDefault();
-    //         dialog.style.display = "block"; // Zobrazíme dialog
-    //         return false;
-    //     }, false);
-    // })
-    //zastaveni probublavani
-    const selects = document.querySelectorAll('select');
-    const classTitles = document.querySelectorAll('.class');
-    const paraTitles = document.querySelectorAll('.clause');
-    console.warn(selects)
-    selects.forEach(select => {
-        select.addEventListener("click", function (event) {
-            // alert(55)
-            event.stopPropagation(); // Zastaví další šíření události
-            // Toto je event handler pro kliknutí na checkbox
-        });
-        //change handler
-    //     select.addEventListener("change", function (event) {
-    //         const selectedValue = select.value; // Získání vybrané hodnoty
-    //         console.log('Vybráno: ' + selectedValue);
-    //         //nastaveni bgcolor
-    //         let color;
-    //         switch (selectedValue) {
-    //             case "overtime":
-    //                 color = "red";
-    //                 break;
-    //             case "substit":
-    //                 color = "yellow"
-    //                 break;
-    //             case "dropped":
-    //                 color = "grey"
-    //                 break;
-    //             case "doctor":
-    //                 color = "lightblue"
-    //                 break;
-    //             case "normal":
-    //                 color = "transparent"
-    //                 break;
-    //             default:
-    //                 color = "transparent"
-    //         }
-    //         event.target.parentElement.style.backgroundColor = color
-    //         changeAttr(event.target.parentElement.getAttribute("id"), selectedValue)
-    //         // console.log(event.target.parentElement.getAttribute("id"))
-    //     });
-    })
-
-
-
-    //naveseni eventhandleru na hover
-
+   
+   
+//eventhandler na zmenu predmetu
     tdElements.forEach((td) => {
-
-        // td.addEventListener('mouseover', function (ev) {
-        //     // console.log(ev.target.children)
-        //     ev.target.children[0].style.visibility = "visible"
-
-        //     return false;
-        // }, false);
-
-        // td.addEventListener('mouseleave', function (ev) {
-        //     ev.target.children[0].style.visibility = "hidden"
-
-        //     return false;
-        // }, false);
-
-        // td.addEventListener('click', change, false);
 
         td.addEventListener('click', function (event) {
             change(event)
 
-// alert(event)
             return false;
         }, false);
     })
@@ -111,33 +42,39 @@ window.onload = (event) => {
 
             console.log(event.target)
             event.preventDefault();
-           
-            
-            
+            let id = event.target.id
+        
             let color = event.target.style.backgroundColor
-            let text = event.target.textContent
+    let state = "normal"
             console.log(color)
             console.log(event.target.textContent)
             if(color === "hotpink") {
                 event.target.style.backgroundColor = "gold"
                 // event.target.textContent = "Suplovaná"
+                state = "substit"
             } else if(color === "gold") {
                 event.target.style.backgroundColor = "lightgrey"
                 // event.target.textContent = "Odpadnutá"
+                state = "dropped"
             } else if(color === "lightgrey") {
                 event.target.style.backgroundColor = "deepskyblue"
                 // event.target.textContent = "Doktor"
+                state = "doctor"
             } else if(color === "deepskyblue") {
                 event.target.style.backgroundColor = "limegreen"
                 // event.target.textContent = "Normální"
+                state = "normal"
             } else if(color === "limegreen") {
                 event.target.style.backgroundColor = "hotpink"
                 // event.target.textContent = "Přesčasová"
+                state = "overtime"
             }
 
+            changeAttr(id, state)
 
-// alert(event)
             return false;
+
+
         }, true);
     })
 
