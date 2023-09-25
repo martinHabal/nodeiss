@@ -5,7 +5,7 @@ const path = require('path');//pro manipulaci s cestami, ať už se jedná o abs
 const bodyParser = require('body-parser');//import bodyParseru
 
 const app = express()//app běží na expressu
-const port = 3005//port, na kterém běží aplikace
+//const port = 3505//port, na kterém běží aplikace
 
 const http = require('http').Server(app)//chat
 const io = require('socket.io')(http);//import socket knihovny pro chat
@@ -44,21 +44,21 @@ app.get('/newuser', (req, res) => {
 
 })
 
-app.post('/newuser', function (request, response, next) {
+// app.post('/newuser', function (request, response, next) {
 
-  // SQL dotaz pro vložení dat do databáze
-  var sql = `INSERT INTO users (fname, lname) VALUES ('${request.body.fname}', '${request.body.lname}')`;
+//   // SQL dotaz pro vložení dat do databáze
+//   var sql = `INSERT INTO users (fname, lname) VALUES ('${request.body.fname}', '${request.body.lname}')`;
 
-  connection.query(sql, (error, results, fields) => {
-    if (error) {
-      console.error(error);
-      return;
-    }
-    console.log(results);
-  })
-  response.send(`Uživatele byli vloženi do DB`)
+//   connection.query(sql, (error, results, fields) => {
+//     if (error) {
+//       console.error(error);
+//       return;
+//     }
+//     console.log(results);
+//   })
+//   response.send(`Uživatele byli vloženi do DB`)
 
-})
+// })
 
 
 app.get('/', (req, res) => {
@@ -68,20 +68,20 @@ app.get('/', (req, res) => {
   res.render('index', { data });
 })
 
-//routa na vypis vsech useru
-app.get('/users', (req, res) => {
+// //routa na vypis vsech useru
+// app.get('/users', (req, res) => {
 
-  //dotaz na SQL
-  connection.query('SELECT * FROM users', (error, results, fields) => {
-    if (error) {
-      console.error(error);
-      return;
-    }
-    console.log(results)
-    res.render('users', { results });
+//   //dotaz na SQL
+//   connection.query('SELECT * FROM users', (error, results, fields) => {
+//     if (error) {
+//       console.error(error);
+//       return;
+//     }
+//     console.log(results)
+//     res.render('users', { results });
 
-  })
-})
+//   })
+// })
 
 //routa na výmaz usera
 app.post('/deleteuser', (req, res) => {
@@ -155,6 +155,6 @@ io.on('connection', (socket) => {
 // })
 
 //tak kvuli tomu chatu nahradim app za http
-http.listen(3005, () => {
+http.listen(3505, () => {
   console.log('Server is running on port 3000');
 });

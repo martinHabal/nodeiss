@@ -16,102 +16,57 @@ const connection = mysql.createConnection({
 });
 
 
-// Definice rout a obslužných funkcí
-router.get('/timetable', (req, res) => {
 
-  connection.query('SELECT * FROM timetable_odd INNER JOIN options', (error, results, fields) => {
-    if (error) {
-      console.error(error);
-      return;
-    }
-    console.log(results)
-
-    res.render('timetable', { results });
-  })
-  // const scheduleData = {
-  //     days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-  //     timetable: [
-  //       ['Math', 'Physics', 'Chemistry', ''],
-  //       ['English', 'History', 'Geography', ''],
-  //       ['Biology', 'Physics', '', ''],
-  //       ['', '', 'Chemistry', ''],
-  //       ['Math', 'English', 'History', '']
-  //     ]
-  //   };
-  //     res.render('timetable', { scheduleData });
-});
-// new timetable
-router.get('/newtimetable', (req, res) => {
-  let data = {
-    days: ["Po", "Út", "S", "Čt", "Pá"],
-    hours: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
-    period: ["odd", "even"],
-  }
-  res.render('newtimetable', { data });
-});
-
-// new timetable
-router.get('/admin', (req, res) => {
-  connection.query('SELECT * FROM subjects', (error, results, fields) => {
-    if (error) {
-      console.error(error);
-      return;
-    }
-    console.log(results)
-    res.render('admin', { results });
-
-  })
-});
-router.post('/newtimetable', function (request, response, next) {
+// router.post('/newtimetable', function (request, response, next) {
 
 
-  console.log(request.body)
+//   console.log(request.body)
 
-  // SQL dotaz pro vložení dat do databáze
-  var sql = `INSERT INTO timetable (day, hour, class, period) VALUES ('${request.body.day}', '${request.body.hour}', '${request.body.class}', '${request.body.period}')`;
+//   // SQL dotaz pro vložení dat do databáze
+//   var sql = `INSERT INTO timetable (day, hour, class, period) VALUES ('${request.body.day}', '${request.body.hour}', '${request.body.class}', '${request.body.period}')`;
 
-  connection.query(sql, (error, results, fields) => {
-    if (error) {
-      console.error(error);
-      return;
-    }
-    console.log(results);
-  })
-  let data = {
-    days: ["Po", "Út", "S", "Čt", "Pá"],
-    hours: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+//   connection.query(sql, (error, results, fields) => {
+//     if (error) {
+//       console.error(error);
+//       return;
+//     }
+//     console.log(results);
+//   })
+//   let data = {
+//     days: ["Po", "Út", "S", "Čt", "Pá"],
+//     hours: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
 
 
-  }
-  response.render('newtimetable', { data });
-  // response.send("hotovo")
+//   }
+//   response.render('newtimetable', { data });
+//   // response.send("hotovo")
 
-})
+// })
 
+// //update rozvrhu
+// router.post('/timetableupdate', function (request, response, next) {
+
+
+//   console.log(request.body.id)
+//   console.log(request.body.data)
+
+//   // Aktualizace záznamu v tabulce
+//   const idToUpdate = request.body.id; // ID záznamu, který chcete aktualizovat
+//   const newValues = {
+//     data: request.body.data
+//   };
+//   // SQL dotaz pro vložení dat do databáze
+//   const sqlQuery = 'UPDATE timetable_odd SET ? WHERE id = ?';
+
+//   connection.query(sqlQuery, [newValues, idToUpdate], (err, result) => {
+//     if (err) {
+//       console.error('Chyba při aktualizaci záznamu: ' + err.stack);
+//       return;
+//     }
+//     console.log('Hodina s id ' + idToUpdate + 'byla nahrazena ' + request.body.data);
+//   });
+// });
 //update rozvrhu
-router.post('/timetableupdate', function (request, response, next) {
-
-
-  console.log(request.body.id)
-  console.log(request.body.data)
-
-  // Aktualizace záznamu v tabulce
-const idToUpdate = request.body.id; // ID záznamu, který chcete aktualizovat
-const newValues = {
-  data: request.body.data
-};
-  // SQL dotaz pro vložení dat do databáze
-  const sqlQuery = 'UPDATE timetable_odd SET ? WHERE id = ?';
-
-  connection.query(sqlQuery, [newValues, idToUpdate], (err, result) => {
-    if (err) {
-      console.error('Chyba při aktualizaci záznamu: ' + err.stack);
-      return;
-    }
-    console.log('Záznam byl úspěšně aktualizován.');
-  });
-});
-  //update rozvrhu
 router.post('/firstDaySet', function (request, response, next) {
 
 
@@ -119,13 +74,13 @@ router.post('/firstDaySet', function (request, response, next) {
   console.log(request.body.data)
 
   // Aktualizace záznamu v tabulce
-const idToUpdate = 1; // ID záznamu, který chcete aktualizovat
-const newValues = {
-  first_day: request.body.data
-};
+  const idToUpdate = 'day'; // ID záznamu, který chcete aktualizovat
+  const newValues = {
+    first_day: request.body.data
+  };
   // SQL dotaz pro vložení dat do databáze
-  const sqlQuery = 'UPDATE options SET ? WHERE id = ?';
-  
+  const sqlQuery = 'UPDATE main SET ? WHERE id = ?';
+
   connection.query(sqlQuery, [newValues, idToUpdate], (err, result) => {
     if (err) {
       console.error('Chyba při aktualizaci záznamu: ' + err.stack);
@@ -134,7 +89,7 @@ const newValues = {
     console.log('Záznam byl úspěšně aktualizován.');
   });
 
-  
+
   // response.render('newtimetable', { data });
   // response.send("hotovo")
 
@@ -148,10 +103,10 @@ router.post('/atributupdate', function (request, response, next) {
   console.log(request.body.id)
 
   // Aktualizace záznamu v tabulce
-const idToUpdate = request.body.id; // ID záznamu, který chcete aktualizovat
-let newValues = {
-  state: request.body.data
-};
+  const idToUpdate = request.body.id; // ID záznamu, který chcete aktualizovat
+  let newValues = {
+    state: request.body.data
+  };
 
   // SQL dotaz pro vložení dat do databáze
   const sqlQuery = 'UPDATE statement SET ? WHERE id = ?';
@@ -163,24 +118,13 @@ let newValues = {
     console.log('Změna záznamu s id: ' + idToUpdate + ' atributu proběhla úspěšně. Atribut byl nahrazen těmito daty: ' + request.body.data);
   });
 
-  
+
   // response.render('newtimetable', { data });
-  // response.send("hotovo")
+  response.send("hotovo")
 
 })
 
-// statement
-router.get('/statement', (req, res) => {
-  connection.query('SELECT * FROM statement', (error, results, fields) => {
-    if (error) {
-      console.error(error);
-      return;
-    }
-    console.log(results)
-    res.render('statement', { results });
 
-  })
-});
 
 router.get('/iterace', (req, res) => {
   connection.query('SELECT * FROM statement', (error, results, fields) => {
@@ -188,7 +132,7 @@ router.get('/iterace', (req, res) => {
       console.error(error);
       return;
     }
-    // console.log(results)
+    console.log(results)
     res.render('iterace', { results });
 
   })
@@ -203,10 +147,10 @@ router.post('/iteraceupdate', function (request, response, next) {
   console.log(request.body.data)
 
   // Aktualizace záznamu v tabulce
-const idToUpdate = request.body.id; // ID záznamu, který chcete aktualizovat
-const newValues = {
-  class: request.body.data
-};
+  const idToUpdate = request.body.id; // ID záznamu, který chcete aktualizovat
+  const newValues = {
+    class: request.body.data
+  };
   // SQL dotaz pro vložení dat do databáze
   const sqlQuery = 'UPDATE statement SET ? WHERE id = ?';
   connection.query(sqlQuery, [newValues, idToUpdate], (err, result) => {
@@ -217,7 +161,7 @@ const newValues = {
     console.log('Záznam byl úspěšně aktualizován.');
   });
 
-  
+
   // response.render('newtimetable', { data });
   // response.send("hotovo")
 

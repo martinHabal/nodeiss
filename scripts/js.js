@@ -24,9 +24,9 @@ window.onload = (event) => {
     const numberOfDaysInMonth = firstDayOfNextMonth.getDate();
 
     const tdElements = document.querySelectorAll(".data");
-   
-   
-//eventhandler na zmenu predmetu
+
+
+    //eventhandler na zmenu predmetu
     tdElements.forEach((td) => {
 
         td.addEventListener('click', function (event) {
@@ -43,31 +43,36 @@ window.onload = (event) => {
             console.log(event.target)
             event.preventDefault();
             let id = event.target.id
-        
+
             let color = event.target.style.backgroundColor
-    let state = "normal"
+            let state = "normal"
             console.log(color)
             console.log(event.target.textContent)
-            if(color === "hotpink") {
+            if (color === "hotpink") {
                 event.target.style.backgroundColor = "gold"
                 // event.target.textContent = "Suplovaná"
                 state = "substit"
-            } else if(color === "gold") {
+            } else if (color === "gold") {
                 event.target.style.backgroundColor = "lightgrey"
                 // event.target.textContent = "Odpadnutá"
                 state = "dropped"
-            } else if(color === "lightgrey") {
+            } else if (color === "lightgrey") {
                 event.target.style.backgroundColor = "deepskyblue"
                 // event.target.textContent = "Doktor"
                 state = "doctor"
-            } else if(color === "deepskyblue") {
+            } else if (color === "deepskyblue") {
                 event.target.style.backgroundColor = "limegreen"
                 // event.target.textContent = "Normální"
                 state = "normal"
-            } else if(color === "limegreen") {
+            } else if (color === "limegreen") {
+                event.target.style.backgroundColor = "transparent"
+                // event.target.textContent = "Přesčasová"
+                state = "empty"
+            } else if (color === "transparent") {
                 event.target.style.backgroundColor = "hotpink"
                 // event.target.textContent = "Přesčasová"
                 state = "overtime"
+                // alert(event.target.style.backgroundColor)
             }
 
             changeAttr(id, state)
@@ -126,7 +131,7 @@ window.onload = (event) => {
 
     //nastaveni prvniho datumu
     function firstDateSet() {
-       
+
 
         let data = prompt("Zadejte datum")
         if (data) {
@@ -183,25 +188,6 @@ window.onload = (event) => {
             // URL API, kam bude odeslán požadavek
             const apiUrl = '/atributupdate';
 
-            //   let overtime;
-            //   switch (state) {
-            //     case "overtime":
-            //         overtime = 1;
-            //       break;
-            //     case "substit":
-            //         overtime = 0
-            //       break;
-            //     case "dropped":
-            //         overtime = 0
-            //       break;
-            //     case "doctor":
-            //         overtime = 0
-            //       break;
-            //       // Add more cases as needed
-            //     default:
-            //         overtime = 0
-            //   }
-            // Data, která budou odeslána jako součást požadavku (může být objekt nebo FormData)
             const requestData = {
                 id: id,
                 data: state
@@ -232,11 +218,13 @@ window.onload = (event) => {
                     console.error('Chyba:', error);
                     // Zde můžete zpracovat chybu a poskytnout zpětnou vazbu uživateli
                 });
-            // location.reload()
+            location.reload()
         }
     }
 
+function duplicate() {//funkce na duplikovani sudy a lichy aby se to nemuselo psat dvakrat
 
+}
     //suma hodin
     //to si necham spocitat db priste
     //hmm, tak to nejdriv musim poresit na DB ty zmeny na polickach rozvrhu
