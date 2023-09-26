@@ -4,14 +4,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Výkaz</title>
   <script type="text/javascript" src="js.js"></script>
   <link rel="stylesheet" href="css.css">
 
 </head>
 
 <body>
-  <button><a href="/">home</a></button>
+  <header>
+
+    <button><a href="/">home</a></button>
+    <button><a href="/timetable">Rozvrh</a></button>
+  
+  </header>
 
   <h3>
     <% const currentDate=new Date(); %>
@@ -87,9 +92,9 @@
   jak poresit historii? -->
 
   <h1>
-    iterace
+    Výkaz
   </h1>
-  <button>duplikovat</button>
+  <button id="load">Načíst</button>
   <% day="Pondělí" %>
   <% hour=0 %>
   <% date=results[0].firstday%>

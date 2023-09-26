@@ -25,6 +25,43 @@ window.onload = (event) => {
 
     const tdElements = document.querySelectorAll(".data");
 
+    const loadBtn = document.getElementById('load')
+    loadBtn.addEventListener('click', () => {
+        loadStatement()
+    })
+    //nahrání rozvrhu do výkazu
+    function loadStatement() {
+        // Data, která budou odeslána jako součást požadavku (může být objekt nebo FormData)
+
+        const yes = confirm("Opravdu chcete načíst data z rozvrhu? Aktuální data se přepíší.")//tady vlastne jen poslu get na routu kde se to vynda z rovrhu a prepise na vykaz
+        alert(yes)
+        if (yes) {
+
+            const apiUrl = '/loadStatement';
+
+            const requestData = {
+                id: event.target.id
+            };
+
+            // Konfigurace pro POST požadavek
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' // Změňte na 'application/x-www-form-urlencoded', pokud odesíláte FormData
+                },
+                body: JSON.stringify(requestData) // Změňte na new URLSearchParams(requestData) pro 'application/x-www-form-urlencoded'
+            };
+
+            // Odeslání požadavku pomocí funkce fetch
+            fetch(apiUrl, requestOptions)
+                
+                .catch(error => {
+                    console.error('Chyba:', error);
+                    // Zde můžete zpracovat chybu a poskytnout zpětnou vazbu uživateli
+                });
+            // location.reload()
+        }
+    }
 
     //eventhandler na zmenu predmetu
     tdElements.forEach((td) => {
@@ -91,7 +128,7 @@ window.onload = (event) => {
         let data = prompt("Zadejte předmět", event.target.textContent.trim())
         if (data) {
             // URL API, kam bude odeslán požadavek
-            const apiUrl = '/iteraceupdate';
+            const apiUrl = '/statementupdate';
 
             // Data, která budou odeslána jako součást požadavku (může být objekt nebo FormData)
             const requestData = {
@@ -222,9 +259,9 @@ window.onload = (event) => {
         }
     }
 
-function duplicate() {//funkce na duplikovani sudy a lichy aby se to nemuselo psat dvakrat
+    function duplicate() {//funkce na duplikovani sudy a lichy aby se to nemuselo psat dvakrat
 
-}
+    }
     //suma hodin
     //to si necham spocitat db priste
     //hmm, tak to nejdriv musim poresit na DB ty zmeny na polickach rozvrhu

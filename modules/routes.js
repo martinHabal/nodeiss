@@ -16,56 +16,44 @@ const connection = mysql.createConnection({
 });
 
 
+router.get('/timetable', (req, res) => {
+  connection.query('SELECT * FROM timetable', (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      return;
+    }
+    // console.log(results)
+    res.render('timetable', { results });
 
-// router.post('/newtimetable', function (request, response, next) {
-
-
-//   console.log(request.body)
-
-//   // SQL dotaz pro vložení dat do databáze
-//   var sql = `INSERT INTO timetable (day, hour, class, period) VALUES ('${request.body.day}', '${request.body.hour}', '${request.body.class}', '${request.body.period}')`;
-
-//   connection.query(sql, (error, results, fields) => {
-//     if (error) {
-//       console.error(error);
-//       return;
-//     }
-//     console.log(results);
-//   })
-//   let data = {
-//     days: ["Po", "Út", "S", "Čt", "Pá"],
-//     hours: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+  })
+});
 
 
-//   }
-//   response.render('newtimetable', { data });
-//   // response.send("hotovo")
 
-// })
-
-// //update rozvrhu
-// router.post('/timetableupdate', function (request, response, next) {
+//update rozvrhu
+router.post('/timetableupdate', function (request, response, next) {
 
 
-//   console.log(request.body.id)
-//   console.log(request.body.data)
+  console.log(request.body.id)
+  console.log(request.body.data)
 
-//   // Aktualizace záznamu v tabulce
-//   const idToUpdate = request.body.id; // ID záznamu, který chcete aktualizovat
-//   const newValues = {
-//     data: request.body.data
-//   };
-//   // SQL dotaz pro vložení dat do databáze
-//   const sqlQuery = 'UPDATE timetable_odd SET ? WHERE id = ?';
+  // Aktualizace záznamu v tabulce
+  const idToUpdate = request.body.id; // ID záznamu, který chcete aktualizovat
+  const newValues = {
+    class: request.body.data
+  };
+  // SQL dotaz pro vložení dat do databáze
+  const sqlQuery = 'UPDATE timetable SET ? WHERE id = ?';
 
-//   connection.query(sqlQuery, [newValues, idToUpdate], (err, result) => {
-//     if (err) {
-//       console.error('Chyba při aktualizaci záznamu: ' + err.stack);
-//       return;
-//     }
-//     console.log('Hodina s id ' + idToUpdate + 'byla nahrazena ' + request.body.data);
-//   });
-// });
+  connection.query(sqlQuery, [newValues, idToUpdate], (err, result) => {
+    if (err) {
+      console.error('Chyba při aktualizaci záznamu: ' + err.stack);
+      return;
+    }
+    console.log('Hodina s id ' + idToUpdate + 'byla nahrazena ' + request.body.data);
+  });
+});
+
 //update rozvrhu
 router.post('/firstDaySet', function (request, response, next) {
 
@@ -125,22 +113,22 @@ router.post('/atributupdate', function (request, response, next) {
 })
 
 
-
-router.get('/iterace', (req, res) => {
+//vykaz
+router.get('/statement', (req, res) => {
   connection.query('SELECT * FROM statement', (error, results, fields) => {
     if (error) {
       console.error(error);
       return;
     }
-    console.log(results)
-    res.render('iterace', { results });
+    // console.log(results)
+    res.render('statement', { results });
 
   })
 });
 
 
 //update tridy
-router.post('/iteraceupdate', function (request, response, next) {
+router.post('/statementupdate', function (request, response, next) {
 
 
   console.log(request.body.id)
@@ -161,10 +149,78 @@ router.post('/iteraceupdate', function (request, response, next) {
     console.log('Záznam byl úspěšně aktualizován.');
   });
 
-
   // response.render('newtimetable', { data });
   // response.send("hotovo")
-
+  
 })
 // Exportování routeru
+router.post('/loadStatement', (req, res) => {
+  // connection.query('SELECT * FROM timetable', (error, results, fields) => {
+  //   if (error) {
+  //     console.error(error);
+  //     return;
+  //   }
+  //   console.log(results)
+  //   // res.render('statement', { results });
+
+  // })
+
+  // Vytvořte dotaz k vytažení dat z první tabulky
+  // const query = `SELECT * FROM timetable`;
+
+  // Vytvoření dotazu
+  const sql = `
+    SELECT
+      id,
+      class,
+      state
+    FROM
+      timetable
+      ;
+  `;
+
+  // WHERE
+  //     id IN (
+  //       SELECT
+  //         id
+  //       FROM
+  //         students
+  //       ORDER BY
+  //         id
+
+
+  // Spuštění dotazu
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+console.log(results)
+    // Aktualizace tabulky
+    const updateSql = `
+      UPDATE students
+      SET
+        class = ?,
+        state = ?
+      WHERE
+        id = ?;
+    `;
+
+    for (const result of results) {
+      connection.query(
+        updateSql,
+        [result.class, result.id, result.id],
+        (err, results) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+
+          console.log("Data byla aktualizována");
+        },
+      );
+    }
+  });
+});
+// });
 module.exports = router;

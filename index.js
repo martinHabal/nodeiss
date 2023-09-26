@@ -116,6 +116,7 @@ app.post('/deleteallusers', (req, res) => {
     res.render('users', { results });
 
   })
+  
 })
 
 
@@ -123,6 +124,9 @@ app.get('/galery', (req, res) => {
   const imagePath = 'w.PNG'; // Cesta k obrázku
   res.render('galery', { imagePath });
 });
+
+
+
 app.get('/chat', (req, res) => {
   res.render('chat');
 });
