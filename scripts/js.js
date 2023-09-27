@@ -26,8 +26,13 @@ window.onload = (event) => {
     const tdElements = document.querySelectorAll(".data");
 
     const loadBtn = document.getElementById('load')
+    const loadBtn2 = document.getElementById('load2')
+
     loadBtn.addEventListener('click', () => {
         loadStatement()
+    })
+    loadBtn2.addEventListener('click', () => {
+        loadStatement2()
     })
     //nahrání rozvrhu do výkazu
     function loadStatement() {
@@ -59,7 +64,40 @@ window.onload = (event) => {
                     console.error('Chyba:', error);
                     // Zde můžete zpracovat chybu a poskytnout zpětnou vazbu uživateli
                 });
-            // location.reload()
+            location.reload()
+        }
+    }
+
+    function loadStatement2() {
+        // Data, která budou odeslána jako součást požadavku (může být objekt nebo FormData)
+
+        const yes = confirm("Opravdu chcete načíst data z rozvrhu? Aktuální data se přepíší.")//tady vlastne jen poslu get na routu kde se to vynda z rovrhu a prepise na vykaz
+        alert(yes)
+        if (yes) {
+
+            const apiUrl = '/loadStatement2';
+
+            const requestData = {
+                id: event.target.id
+            };
+
+            // Konfigurace pro POST požadavek
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' // Změňte na 'application/x-www-form-urlencoded', pokud odesíláte FormData
+                },
+                body: JSON.stringify(requestData) // Změňte na new URLSearchParams(requestData) pro 'application/x-www-form-urlencoded'
+            };
+
+            // Odeslání požadavku pomocí funkce fetch
+            fetch(apiUrl, requestOptions)
+                
+                .catch(error => {
+                    console.error('Chyba:', error);
+                    // Zde můžete zpracovat chybu a poskytnout zpětnou vazbu uživateli
+                });
+            location.reload()
         }
     }
 
