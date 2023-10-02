@@ -1,6 +1,6 @@
 
-window.onload = (event) => {
-
+// window.onload = (event) => {
+// alert(55)
     // zmena predmetu
     function changeTimetableData(event) {
         console.log(event.target.style)
@@ -46,10 +46,10 @@ window.onload = (event) => {
         }
     }
 
-const tdElements = document.querySelectorAll(".data");
+const tdElements2 = document.querySelectorAll(".data");
 
 //eventhandler na zmenu predmetu
-tdElements.forEach((td) => {
+tdElements2.forEach((td) => {
 
     td.addEventListener('click', function (event) {
         changeTimetableData(event)
@@ -58,4 +58,4 @@ tdElements.forEach((td) => {
     }, false);
 })
 
-}
+// }

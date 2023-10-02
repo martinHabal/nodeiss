@@ -3,6 +3,8 @@ const ejs = require('ejs');//šablonovací knihovna
 const mysql = require('mysql2');//NPM I MYSQL2//konektor na DB
 const path = require('path');//pro manipulaci s cestami, ať už se jedná o absolutní cesty, relativní cesty
 const bodyParser = require('body-parser');//import bodyParseru
+const session = require('express-session');
+
 
 const app = express()//app běží na expressu
 //const port = 3505//port, na kterém běží aplikace
@@ -15,6 +17,12 @@ const routes = require('./modules/routes');
 // Použití modulu s routami
 app.use('/', routes);
 
+app.use(session({
+  secret: 'sadhgsctgza', // Tajný klíč pro šifrování session dat
+  resave: false, // Nerezervovat session, pokud není změněna
+  saveUninitialized: true, // Uložit session i pro nepřihlášené uživatele
+  cookie: { secure: false } // Nastavení cookie (může být změněno podle potřeby)
+}));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -61,12 +69,7 @@ app.get('/newuser', (req, res) => {
 // })
 
 
-app.get('/', (req, res) => {
-  const data = {
-    message: 'Rozcestník'
-  };
-  res.render('index', { data });
-})
+
 
 // //routa na vypis vsech useru
 // app.get('/users', (req, res) => {

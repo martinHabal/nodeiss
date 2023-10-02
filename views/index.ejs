@@ -2,22 +2,176 @@
 <html>
 <head>
   <title>index</title>
-  <link rel="stylesheet" type="text/css" href="/style.css">
-  <script src="/script.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css.css">
+  <script src="/timeTable.js"></script>
+  <script src="/statement.js"></script>
+  <script src="/js.js"></script>
+  <!-- tyhle imorty pak presunout jen do indexu, zbytecne se to duplikuje z tech sablon -->
 </head>
 <body>
-  <!-- <h1><%= data.message %></h1> -->
+  
   <header>
-    <h1>Superprojekt ISS-CHeb</h1>
+    <h1>Superprojekt ISS-CHeb
+      <span style="float: right">
+        
+        <%= results %>
+
+      </span></h1>
+    
+    <button id="login">login</button>
+    <button id="logout">logout</button>
   </header>
+  <div id="date">
+    <p>
+      <% const currentDate=new Date(); %>
+      <% const currentYear=currentDate.getFullYear(); %>
+      <% const currentMonth=currentDate.getMonth() + 1; %>
+      <% const currentDay=currentDate.getDate(); %>
+  
+      <% const firstDayOfNextMonth=new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+                              %>
+      <% firstDayOfNextMonth.setDate(firstDayOfNextMonth.getDate() - 1); %>
+      <% const numberOfDaysInMonth=firstDayOfNextMonth.getDate(); %>
+  
+      <% const daysOfWeek=['Neděle', 'Pondělí' , 'Úterý' , 'Středa' , 'Čtvrtek' , 'Pátek'
+                                          , 'Sobota' ]; %>
+      <% const dayOfWeekNumber=currentDate.getDay();%>
+      <% const dayOfWeekName=daysOfWeek[dayOfWeekNumber];%>
+  
+  
+  
+      <%
+                                                  
+                                                      
+                                                    
+                                                      
+                                                      // Získání aktuálního dne v roce (1-366)
+                                                      const dayOfYear = getDayOfYear(currentDate);
+                                                      
+                                                      // Funkce pro získání čísla týdne pro konkrétní datum
+                                                      function getWeekNumber(date) {
+                                                        const firstDayOfYear = new Date(date.getFullYear(), 0, 1); // První den roku
+                                                        const daysSinceFirstDay = dayOfYear - 1; // Počet dní od prvního dne roku
+                                                        const weekNumber = Math.ceil((daysSinceFirstDay + firstDayOfYear.getDay() + 1) / 7);
+                                                        return weekNumber;
+                                                      }
+                                                      
+                                                      // Získání čísla týdne pro aktuální datum
+                                                      const currentWeekNumber = getWeekNumber(currentDate);
+                                                      
+                                                      // Zjištění, zda je týden sudý nebo lichý
+                                                      function oddEven() {
+                                                        if (currentWeekNumber % 2 === 0) {
+                                                          return `a aktuální týden (${currentWeekNumber}) je sudý.`
+                                                          console.log(`a aktuální týden (${currentWeekNumber}) je sudý.`);
+                                                        } else {
+                                                          return `a aktuální týden (${currentWeekNumber}) je lichý.`
+                                                          console.log(`a aktuální týden (${currentWeekNumber}) je lichý.`);
+                                                        }
+  
+                                                      }
+                                                      
+                                                      // Funkce pro získání čísla dne v roce pro konkrétní datum
+                                                      function getDayOfYear(date) {
+                                                        const start = new Date(date.getFullYear(), 0, 0);
+                                                        const diff = date - start;
+                                                        const oneDay = 1000 * 60 * 60 * 24; // Počet milisekund v jednom dni
+                                                        return Math.floor(diff / oneDay);
+                                                      }
+  %>
+  
+      <%= "Dnes je " + dayOfWeekName + " dne " + currentDay + ". " + currentMonth + ". " + currentYear
+                                                      + " ,tento měsíc má " + numberOfDaysInMonth + " dní "
+                                                      + oddEven()%>
+
+    </p>
+  </div>
   <!-- <button><a href="/users">výpis</a></button> -->
   <!-- <button><a href="/newuser">nový</a></button> -->
   <button><a href="/chat">chat</a></button>
   <button><a href="/galery">galerie</a></button>
   <button><a href="/timetable">Rozvrh</a></button>
   <button><a href="/statement">Výkaz</a></button>
+  <button id="rozvrh">rozvrh</button>
+  <button id="vykaz">výkaz</button>
   
-  
+  <div id="content">
+
+  </div>
   
 </body>
 </html>
+
+<!-- app.get('/', (req, res) => {
+
+
+  let sql = `SELECT * FROM users `;
+  //dotaz na SQL
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      return;
+    }
+    console.log(results)
+    console.log("Byl nahran mainpage")
+    // res.cookie('user', 'Vera', { maxAge: 900000, httpOnly: false });
+    const userCookie = req.cookies.user;
+    console.log(userCookie)
+    res.render(`mainpage`, { data: results, user:  "hgf"});
+    // res.render(`mainpage`, { results });
+  });
+});
+
+app.get('/login', (req, res) => {
+  // res.send('<h1>Toto je jiná stránka</h1>');
+  res.render('login')
+});
+
+app.post('/login', (req, res) => {
+  console.log(`Body je ${req.body.username}`)
+  let sql = `SELECT * FROM users WHERE id=${req.body.username}`;
+  //dotaz na SQL
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      return;
+    }
+    console.log(results)
+    console.log("Uživatel byl smazán")
+    res.cookie('user', 'Tibor', { maxAge: 900000, httpOnly: true });
+    res.render('mainpage', { results });
+
+  })
+  // res.render('login')
+});
+
+
+//Cookies
+app.get('/getCookie', (req, res) => {
+  const userCookie = req.cookies.user;
+  res.send(`Value of the 'user' cookie: ${userCookie}`);
+});
+
+//SESSION
+app.get('/setSession', (req, res) => {
+  // Uložení hodnoty do session
+  req.session.username = 'JohnDoe';
+  res.send('Session data uložena.');
+});
+
+app.get('/getSession', (req, res) => {
+  // Získání hodnoty z session
+  const username = req.session.username || 'Nepřihlášený uživatel';
+  res.send(`Přihlášený uživatel: ${username}`);
+});
+
+app.get('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      console.error('Chyba při mazání session:', err);
+    } else {
+      console.log('Session byla odhlášena.');
+    }
+    res.redirect('/');
+  }); -->
+<!-- }); -->

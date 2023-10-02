@@ -4,8 +4,11 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');//NPM I MYSQL2//konektor na DB
+const cookieParser = require('cookie-parser');
+
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
+router.use(cookieParser());
 
 const connection = mysql.createConnection({
   host: 'localhost', // Název nebo IP adresa serveru databáze
@@ -17,7 +20,11 @@ const connection = mysql.createConnection({
 
 
 router.get('/timetable', (req, res) => {
-  connection.query('SELECT * FROM timetable', (error, results, fields) => {
+
+  const userCookie = req.cookies.user;
+  const table = userCookie.toLowerCase() + "_statement"
+  if(userCookie){
+  connection.query(`SELECT * FROM ${table}`, (error, results, fields) => {
     if (error) {
       console.error(error);
       return;
@@ -26,6 +33,10 @@ router.get('/timetable', (req, res) => {
     res.render('timetable', { results });
 
   })
+   } else {
+    let results = "Nepřihlášen" 
+    res.render('timetable', { results });
+  }
 });
 
 
@@ -111,7 +122,52 @@ router.post('/atributupdate', function (request, response, next) {
   response.send("hotovo")
 
 })
+//index
+router.get('/', (req, res) => {
 
+  const userCookie = req.cookies.user;
+  console.log(userCookie)
+  if (userCookie) {
+    connection.query(`SELECT * FROM users WHERE fname='${userCookie}'`, (error, results, fields) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      // console.log(results)
+      res.render('index', { results });
+    })
+  } else {
+    let results = "Nepřihlášen" 
+    res.render('index', { results });
+  }
+})
+
+
+
+//novy uzivatel, zkopiruje se stavajici tabulka a nahazi se tam z ni data, ta tabulka bude prazdna, proste template
+router.post('/signin', function (request, response, next) {
+  
+  // CREATE TABLE nový_zákazník LIKE zákazníci;
+  // INSERT INTO nový_zákazník SELECT * FROM zákazníci;
+
+  console.log(request.body.id)
+  console.log(request.body.data)
+
+  // Aktualizace záznamu v tabulce
+  const idToUpdate = request.body.id; // ID záznamu, který chcete aktualizovat
+  const newValues = {
+    class: request.body.data
+  };
+  // SQL dotaz pro vložení dat do databáze
+  const sqlQuery = 'UPDATE statement SET ? WHERE id = ?';
+  connection.query(sqlQuery, [newValues, idToUpdate], (err, result) => {
+    if (err) {
+      console.error('Chyba při aktualizaci záznamu: ' + err.stack);
+      return;
+    }
+    console.log('Záznam byl úspěšně aktualizován.');
+  });
+});
 
 //vykaz
 router.get('/statement', (req, res) => {
@@ -217,7 +273,7 @@ router.post('/loadStatement2', (req, res) => {
       console.log(err);
       return;
     }
-  
+
     // Vytvoření dotazu k výběru dat
     const selectSql = `
       SELECT
@@ -232,14 +288,14 @@ router.post('/loadStatement2', (req, res) => {
             statement
         );
     `;
-  
+
     // Spuštění dotazu
     connection.query(selectSql, (err, results) => {
       if (err) {
         console.log(err);
         return;
       }
-  
+
       // Aktualizace dat
       for (const result of results) {
         console.log(result.class)
@@ -250,7 +306,7 @@ router.post('/loadStatement2', (req, res) => {
           WHERE
             id = ?;
         `;
-  
+
         connection.query(
           updateSql,
           [result.id + 8],
@@ -259,17 +315,17 @@ router.post('/loadStatement2', (req, res) => {
               console.log(err);
               return;
             }
-  
+
             console.log("Data byla duplikovana");
           },
         );
       }
     });
-  
-  
+
+
   });
 
-  
+
 
   // // Spuštění dotazu
   // connection.query(sql, (err, results) => {

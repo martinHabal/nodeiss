@@ -1,88 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Výkaz</title>
-  <script type="text/javascript" src="js.js"></script>
-  <link rel="stylesheet" href="css.css">
+  <!-- <header>
 
-</head>
 
-<body>
-  <header>
+  </header> -->
 
-    <button><a href="/">home</a></button>
-    <button><a href="/timetable">Rozvrh</a></button>
   
-  </header>
-
-  <h3>
-    <% const currentDate=new Date(); %>
-    <% const currentYear=currentDate.getFullYear(); %>
-    <% const currentMonth=currentDate.getMonth() + 1; %>
-    <% const currentDay=currentDate.getDate(); %>
-
-    <% const firstDayOfNextMonth=new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
-                            %>
-    <% firstDayOfNextMonth.setDate(firstDayOfNextMonth.getDate() - 1); %>
-    <% const numberOfDaysInMonth=firstDayOfNextMonth.getDate(); %>
-
-    <% const daysOfWeek=['Neděle', 'Pondělí' , 'Úterý' , 'Středa' , 'Čtvrtek' , 'Pátek'
-                                        , 'Sobota' ]; %>
-    <% const dayOfWeekNumber=currentDate.getDay();%>
-    <% const dayOfWeekName=daysOfWeek[dayOfWeekNumber];%>
-
-    
-
-    <%
-                                                
-                                                    
-                                                  
-                                                    
-                                                    // Získání aktuálního dne v roce (1-366)
-                                                    const dayOfYear = getDayOfYear(currentDate);
-                                                    
-                                                    // Funkce pro získání čísla týdne pro konkrétní datum
-                                                    function getWeekNumber(date) {
-                                                      const firstDayOfYear = new Date(date.getFullYear(), 0, 1); // První den roku
-                                                      const daysSinceFirstDay = dayOfYear - 1; // Počet dní od prvního dne roku
-                                                      const weekNumber = Math.ceil((daysSinceFirstDay + firstDayOfYear.getDay() + 1) / 7);
-                                                      return weekNumber;
-                                                    }
-                                                    
-                                                    // Získání čísla týdne pro aktuální datum
-                                                    const currentWeekNumber = getWeekNumber(currentDate);
-                                                    
-                                                    // Zjištění, zda je týden sudý nebo lichý
-                                                    function oddEven() {
-                                                      if (currentWeekNumber % 2 === 0) {
-                                                        return `Aktuální týden (${currentWeekNumber}) je sudý.`
-                                                        console.log(`Aktuální týden (${currentWeekNumber}) je sudý.`);
-                                                      } else {
-                                                        return `Aktuální týden (${currentWeekNumber}) je lichý.`
-                                                        console.log(`Aktuální týden (${currentWeekNumber}) je lichý.`);
-                                                      }
-
-                                                    }
-                                                    
-                                                    // Funkce pro získání čísla dne v roce pro konkrétní datum
-                                                    function getDayOfYear(date) {
-                                                      const start = new Date(date.getFullYear(), 0, 0);
-                                                      const diff = date - start;
-                                                      const oneDay = 1000 * 60 * 60 * 24; // Počet milisekund v jednom dni
-                                                      return Math.floor(diff / oneDay);
-                                                    }
-%>
-
-<%= currentDay + ". " + currentMonth + ". " + currentYear
-                                                    + " a tento měsíc má " + numberOfDaysInMonth + " dní" + " dnes je "
-                                                    + dayOfWeekName + " " + oddEven()%>
-  </h3>
-
-
-
   <!-- problemy:
 
   jak vyresit aby se menil datum? zatim si proste nastavi prvni datum a zybtek se dopocita
@@ -107,9 +29,9 @@
   <% doctor=0 %>
   <table>
     <tr>
-      <th></th>
-      <th></th>
-      <th>0(07:00 - 07:45)</th>
+      <th style="visibility: hidden"></th>
+      <th style="visibility: hidden"></th>
+      <!-- <th>0(07:00 - 07:45)</th>
       <th>1(08:00 - 08:45)</th>
       <th>2(08:55 - 09:40)</th>
       <th>3(09:50 - 10:35)</th>
@@ -119,7 +41,18 @@
       <th>7(13:40 - 14:25)</th>
       <th>8(14:30 - 15:15)</th>
       <th>9(15:20 - 16:05)</th>
-      <th>10(16:10 - 18:00)</th>
+      <th>10(16:10 - 18:00)</th> -->
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>10</th>
 
     </tr>
 
@@ -228,8 +161,8 @@
  else if(item.state === "doctor") {color="DeepSkyBlue"}
  else if(item.state === "normal") {color="limegreen"}
  else if(item.state === "empty") {color="transparent"} %>
-      <td class="data" style="background-color: <%= color%>" id="<%= item.id %>" day="<%= item.day %>" hour="<%= item.hour %>" overtime="<%= item.overtime %>" substit="<%= item.substit %>" dropped="<%= item.dropped %>" doctor="<%= item.doctor %>"> 
-        <%=item.class%>  
+      <td class="data" style="background-color: <%= color%>" id="<%= item.id %>" day="<%= item.day %>" hour="<%= item.hour %>" overtime="<%= item.overtime %>" substit="<%= item.substit %>" dropped="<%= item.dropped %>" doctor="<%= item.doctor %>">
+        <%=item.class%>
       </td>
 
       <%})%>
@@ -300,9 +233,7 @@
   <hr />
   <h1>postup</h1>
   <p>nejdrive vyplnime sudy a lichy tyden</p>
-</body>
 
-</html>
 <!-- chybi mi na konci break, kdyz by bylo vic dat, ale tech vic stejne nemuze byt ale je to osetreni, a ten kod samozrejme musim zkratit -->
 <!-- ok, bude se barva menit jen na kliknuti a napise se tam co je to za hodinu -->
 <!-- radsi bych ty suplovany oznacil stejnou barvou jako ve skole online, jednou je to zluty pak cerveny to je naprd -->
