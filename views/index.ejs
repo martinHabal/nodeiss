@@ -6,24 +6,11 @@
   <script src="/timeTable.js"></script>
   <script src="/statement.js"></script>
   <script src="/js.js"></script>
+  <script type="module" src="/test.js"></script>
   <!-- tyhle imorty pak presunout jen do indexu, zbytecne se to duplikuje z tech sablon -->
 </head>
 <body>
-  
-  <header>
-    <h1>Superprojekt ISS-CHeb
-      <span style="float: right">
-        
-        <%= results %>
-
-      </span></h1>
-    
-    <button id="login">login</button>
-    <button id="logout">logout</button>
-  </header>
-  <div id="date">
-    <p>
-      <% const currentDate=new Date(); %>
+  <% const currentDate=new Date(); %>
       <% const currentYear=currentDate.getFullYear(); %>
       <% const currentMonth=currentDate.getMonth() + 1; %>
       <% const currentDay=currentDate.getDate(); %>
@@ -79,22 +66,32 @@
                                                         return Math.floor(diff / oneDay);
                                                       }
   %>
-  
-      <%= "Dnes je " + dayOfWeekName + " dne " + currentDay + ". " + currentMonth + ". " + currentYear
-                                                      + " ,tento měsíc má " + numberOfDaysInMonth + " dní "
-                                                      + oddEven()%>
+  <header>
+    <h1>Superprojekt ISS-CHeb
+      <span style="float: right">
+        
+        <%= results %>
 
-    </p>
-  </div>
+      </span></h1>
+    <p><%= "Dnes je " + dayOfWeekName + " dne " + currentDay + ". " + currentMonth + ". " + currentYear
+      + " ,tento měsíc má " + numberOfDaysInMonth + " dní "
+      + oddEven()%></p>
+    <button id="login">login</button>
+    <button id="logout">logout</button>
+  
+  
   <!-- <button><a href="/users">výpis</a></button> -->
   <!-- <button><a href="/newuser">nový</a></button> -->
-  <button><a href="/chat">chat</a></button>
+  <!-- <nav> -->
+  <!-- <button><a href="/chat">chat</a></button>
   <button><a href="/galery">galerie</a></button>
   <button><a href="/timetable">Rozvrh</a></button>
-  <button><a href="/statement">Výkaz</a></button>
-  <button id="rozvrh">rozvrh</button>
-  <button id="vykaz">výkaz</button>
-  
+  <button><a href="/statement">Výkaz</a></button> -->
+  <button id="rozvrh" onclick="loadTimetable()">rozvrh</button>
+  <button id="vykaz" onclick="loadStatement()">výkaz</button>
+<!-- </nav> -->
+
+</header>
   <div id="content">
 
   </div>

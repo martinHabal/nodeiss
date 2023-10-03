@@ -1,10 +1,19 @@
  /* Styly pro rozvrh */
+ /* dodelat aby si mohli vybrat pozadi */
+ body {
+    
+  /* background-image: linear-gradient(rgba(202, 46, 46, 0.5), rgba(81, 188, 14, 0.5)), url('obrazek.jpg'); Zde nahraďte 'obrazek.jpg' cestou k vašemu obrázku */
+background-color: pink;
+ }
  table {
     /* border-collapse: collapse; */
     /* width: 100%; */
     max-width: 73%;
-    margin: auto;
+    /* margin: auto; */
     /* float: left; */
+    position: relative;
+    /* left: 200px; */
+    /* z-index: -10; */
   }
 
   th,
@@ -69,18 +78,32 @@ table p {
   }
 
   header {
-    position: -webkit-sticky;
     position: sticky;
-    top: 0;
+    top: 70px;
     background-color: #4797974f;
-    height: 45px;
+    height: 135px;
+    width: 40%;
+    float: right;
+    border-radius: 5px;
   }
 
+  #results {
+    position: fixed;
+    top: 220px;
+    background-color: black;
+    height: 305px;
+    width: 40%;
+    float: right;
+    right: 0px;
+    border-radius: 5px;
+    font-size: 25px;
+  }
   #login, #logout {
     float: right
   }
 
-  #date {
-    width: 100%;
-    border: 1px solid black;
-  }
+  /* nav {
+    position: fixed;
+    top: 130px;
+    z-index: 100;
+  } */

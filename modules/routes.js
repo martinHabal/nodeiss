@@ -44,6 +44,8 @@ router.get('/timetable', (req, res) => {
 //update rozvrhu
 router.post('/timetableupdate', function (request, response, next) {
 
+  const userCookie = request.cookies.user;
+  const table = userCookie.toLowerCase() + "_statement"
 
   console.log(request.body.id)
   console.log(request.body.data)
@@ -54,7 +56,7 @@ router.post('/timetableupdate', function (request, response, next) {
     class: request.body.data
   };
   // SQL dotaz pro vložení dat do databáze
-  const sqlQuery = 'UPDATE timetable SET ? WHERE id = ?';
+  const sqlQuery = `UPDATE ${table} SET ? WHERE id = ?`;
 
   connection.query(sqlQuery, [newValues, idToUpdate], (err, result) => {
     if (err) {

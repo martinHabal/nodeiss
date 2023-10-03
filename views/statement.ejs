@@ -13,11 +13,10 @@
   ten firstday taky musim predelat
   jak poresit historii? -->
 
-  <h1>
+  <h2 style="text-align: center">
     Výkaz
-  </h1>
-  <button id="load">Načíst</button>
-  <button id="load2">Načíst2</button>
+  </h2>
+ 
 
   <% day="Pondělí" %>
   <% hour=0 %>
@@ -27,6 +26,9 @@
   <% substit=0 %>
   <% dropped=0 %>
   <% doctor=0 %>
+
+  
+
   <table>
     <tr>
       <th style="visibility: hidden"></th>
@@ -169,15 +171,16 @@
     </tr>
   </table>
   <div id="results">
-    <p>Normální: <%= normal %></p>
-    <p>Přesčasové: <%= overtime %></p>
-    <p>Suplované: <%= substit %></p>
-    <p>Odpadnuté: <%= dropped %></p>
-    <p>Doktor: <%= doctor %></p>
+    <button id="load">Načíst</button>
+    <button id="load2">Načíst2</button>
+    <p style="color: transparent; font-weight: bold;">Normální: <%= normal %></p>
+    <p style="color: HotPink; font-weight: bold;">Přesčasové: <%= overtime %></p>
+    <p style="color: Gold; font-weight: bold;">Suplované: <%= substit %></p>
+    <p style="color: LightGrey; font-weight: bold;">Odpadnuté: <%= dropped %></p>
+    <p style="color: DeepSkyBlue; font-weight: bold;">Doktor: <%= doctor %></p>
   </div>
-  <script>
 
-  </script>
+ 
 
 
   <!-- dialog -->

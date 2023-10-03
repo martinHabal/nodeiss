@@ -46,16 +46,16 @@
         }
     }
 
-const tdElements2 = document.querySelectorAll(".data");
+// const tdElements2 = document.querySelectorAll(".data");
 
 //eventhandler na zmenu predmetu
-tdElements2.forEach((td) => {
+// tdElements2.forEach((td) => {
 
-    td.addEventListener('click', function (event) {
-        changeTimetableData(event)
+//     td.addEventListener('click', function (event) {
+//         changeTimetableData(event)
 
-        return false;
-    }, false);
-})
+//         return false;
+//     }, false);
+// })
 
 // }
