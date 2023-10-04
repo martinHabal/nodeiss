@@ -30,7 +30,12 @@ router.get('/timetable', (req, res) => {
       return;
     }
     // console.log(results)
-    res.render('timetable', { results });
+    var data = {
+      results: results,
+      userLogged: table,
+    };
+
+    res.render('timetable', { data });
 
   })
    } else {
@@ -130,7 +135,7 @@ router.get('/', (req, res) => {
   const userCookie = req.cookies.user;
   console.log(userCookie)
   if (userCookie) {
-    connection.query(`SELECT * FROM users WHERE fname='${userCookie}'`, (error, results, fields) => {
+    connection.query(`SELECT * FROM users WHERE login='${userCookie}'`, (error, results, fields) => {
       if (error) {
         console.error(error);
         return;
