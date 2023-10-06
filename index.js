@@ -13,9 +13,15 @@ const http = require('http').Server(app)//chat
 const io = require('socket.io')(http);//import socket knihovny pro chat
 
 //imort modulu
-const routes = require('./modules/routes');
+const routes = require('./routes/routes');
+const users = require('./routes/user');
+const timetable = require('./routes/timetable');
+const statement = require('./routes/statement');
 // Použití modulu s routami
 app.use('/', routes);
+app.use('/', users);
+app.use('/', timetable);
+app.use('/', statement);
 
 app.use(session({
   secret: 'sadhgsctgza', // Tajný klíč pro šifrování session dat
