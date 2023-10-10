@@ -128,66 +128,8 @@ function firstDateSet() {
     }
 }
 
-// const tdElements = document.querySelectorAll(".data");
-//eventhandler na zmenu predmetu
-// tdElements.forEach((td) => {
 
-//     td.addEventListener('click', function (event) {
-//         change(event)
-
-//         return false;
-//     }, false);
-// })
-
-// tdElements.forEach((td) => {
-
-//     td.addEventListener('contextmenu', function (event) {
-
-//         console.log(event.target)
-//         event.preventDefault();
-//         let id = event.target.id
-
-//         let color = event.target.style.backgroundColor
-//         let state = "normal"
-//         console.log(color)
-//         console.log(event.target.textContent)
-//         if (color === "hotpink") {
-//             event.target.style.backgroundColor = "gold"
-//             // event.target.textContent = "Suplovaná"
-//             state = "substit"
-//         } else if (color === "gold") {
-//             event.target.style.backgroundColor = "lightgrey"
-//             // event.target.textContent = "Odpadnutá"
-//             state = "dropped"
-//         } else if (color === "lightgrey") {
-//             event.target.style.backgroundColor = "deepskyblue"
-//             // event.target.textContent = "Doktor"
-//             state = "doctor"
-//         } else if (color === "deepskyblue") {
-//             event.target.style.backgroundColor = "limegreen"
-//             // event.target.textContent = "Normální"
-//             state = "normal"
-//         } else if (color === "limegreen") {
-//             event.target.style.backgroundColor = "transparent"
-//             // event.target.textContent = "Přesčasová"
-//             state = "empty"
-//         } else if (color === "transparent") {
-//             event.target.style.backgroundColor = "hotpink"
-//             // event.target.textContent = "Přesčasová"
-//             state = "overtime"
-//             // alert(event.target.style.backgroundColor)
-//         }
-
-//         changeAttr(id, state)
-
-//         return false;
-
-
-//     }, true);
-// })
-
-
-// zmena predmetu
+// zmena predmetu ve vykazu
 function change(event) {
     console.log(event.target.style)
 
@@ -233,9 +175,7 @@ function change(event) {
 }
 
 
-
-
-// zmena atributu - prescasova, opdadla...
+// zmena atributu ve vykazu - prescasova, opdadla...
 function changeAttr(id, state) {
     console.log("ev" + event.target)
     console.log(state)

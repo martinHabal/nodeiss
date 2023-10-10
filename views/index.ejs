@@ -72,11 +72,12 @@
     <p><%= "Dnes je " + dayOfWeekName + " dne " + currentDay + ". " + currentMonth + ". " + currentYear
       + " ,tento měsíc má " + numberOfDaysInMonth + " dní "
       + oddEven()%></p>
-    <button id="login">login</button>
+    <button id="login" onclick="logIn()">login</button>
     <button id="logout">logout</button>
+  <!-- js.js -->
     <button id="signin" onclick="signIn()">signin</button>
 
-  <p id="userLogged">Přihlášený uživatel je: <%= results[0].login%></p>
+
   
   <!-- <button><a href="/users">výpis</a></button> -->
   <!-- <button><a href="/newuser">nový</a></button> -->

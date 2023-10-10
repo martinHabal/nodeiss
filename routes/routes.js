@@ -50,100 +50,23 @@ router.post('/firstDaySet', function (request, response, next) {
 
 })
 
-//update atributu rozvrhu
-router.post('/atributupdate', function (request, response, next) {
 
 
-  console.log("req" + request.body.data)
-  console.log(request.body.id)
 
-  // Aktualizace záznamu v tabulce
-  const idToUpdate = request.body.id; // ID záznamu, který chcete aktualizovat
-  let newValues = {
-    state: request.body.data
-  };
-
-  // SQL dotaz pro vložení dat do databáze
-  const sqlQuery = 'UPDATE statement SET ? WHERE id = ?';
-  connection.query(sqlQuery, [newValues, idToUpdate], (err, result) => {
-    if (err) {
-      console.error('Chyba při aktualizaci záznamu: ' + err.stack);
-      return;
-    }
-    console.log('Změna záznamu s id: ' + idToUpdate + ' atributu proběhla úspěšně. Atribut byl nahrazen těmito daty: ' + request.body.data);
-  });
-
-
-  // response.render('newtimetable', { data });
-  response.send("hotovo")
-
-})
-//index
 router.get('/', (req, res) => {
+      res.render('index');
+})
 
-
-  const userCookie = req.cookies.user;
-  console.log(userCookie)
-  if (userCookie) {
-    connection.query(`SELECT * FROM users WHERE login='${userCookie}'`, (error, results, fields) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-      // console.log(results)
-      res.render('index', { results });
-    })
-  } else {
-    let results = "Nepřihlášen"
-    res.render('index', { results });
-  }
+router.get('/login', (req, res) => {
+  res.render('login');
 })
 
 
 
 
 
-//vykaz
-router.get('/statement', (req, res) => {
-  connection.query('SELECT * FROM statement', (error, results, fields) => {
-    if (error) {
-      console.error(error);
-      return;
-    }
-    // console.log(results)
-    res.render('statement', { results });
 
-  })
-});
-
-
-//update tridy
-router.post('/statementupdate', function (request, response, next) {
-
-
-  console.log(request.body.id)
-  console.log(request.body.data)
-
-  // Aktualizace záznamu v tabulce
-  const idToUpdate = request.body.id; // ID záznamu, který chcete aktualizovat
-  const newValues = {
-    class: request.body.data
-  };
-  // SQL dotaz pro vložení dat do databáze
-  const sqlQuery = 'UPDATE statement SET ? WHERE id = ?';
-  connection.query(sqlQuery, [newValues, idToUpdate], (err, result) => {
-    if (err) {
-      console.error('Chyba při aktualizaci záznamu: ' + err.stack);
-      return;
-    }
-    console.log('Záznam byl úspěšně aktualizován.');
-  });
-
-  // response.render('newtimetable', { data });
-  // response.send("hotovo")
-
-})
-// Exportování routeru
+//nacteni rozvrhu do vykazu, prvni cast
 router.post('/loadStatement', (req, res) => {
 
 
@@ -261,38 +184,6 @@ router.post('/loadStatement2', (req, res) => {
 
 
 
-  // // Spuštění dotazu
-  // connection.query(sql, (err, results) => {
-  //   if (err) {
-  //     console.log(err);
-  //     return;
-  //   }
-  //   console.log(results)
-  //   // Aktualizace tabulky
-  //   const updateSql = `
-  //     UPDATE statement
-  //     SET
-  //       class = ?,
-  //       state = ?
-  //     WHERE
-  //       id = ?;
-  //   `;
-
-  //   for (const result of results) {
-  //     connection.query(
-  //       updateSql,
-  //       [result.class, result.id, result.id],
-  //       (err, results) => {
-  //         if (err) {
-  //           console.log(err);
-  //           return;
-  //         }
-
-  //         console.log("Data byla aktualizována");
-  //       },
-  //     );
-  //   }
-  // });
 });
 // });
 module.exports = router;
