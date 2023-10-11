@@ -152,34 +152,7 @@ window.onload = (event) => {
         location.reload()
     });
 
-    // // Získání aktuálního data
-    // const currentDate = new Date();
-
-    // // Získání roku, měsíce a dne
-    // const currentYear = currentDate.getFullYear();
-    // const currentMonth = currentDate.getMonth() + 1; // Měsíce jsou indexovány od 0 (leden) do 11 (prosinec)
-    // const currentDay = currentDate.getDate();
-
-    // // Zobrazení aktuálního roku, měsíce a dne
-    // console.log(`Aktuální rok: ${currentYear}`);
-    // console.log(`Aktuální měsíc: ${currentMonth}`);
-    // console.log(`Aktuální den: ${currentDay}`);
-
-    // // Získání prvního dne měsíce následujícího měsíce
-    // const firstDayOfNextMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
-
-    // // Posun na poslední den aktuálního měsíce
-    // firstDayOfNextMonth.setDate(firstDayOfNextMonth.getDate() - 1);
-
-    // // Získání počtu dní v aktuálním měsíci
-    // const numberOfDaysInMonth = firstDayOfNextMonth.getDate();
-
-
-
-
-
-
-
+   
 
     function duplicate() {//funkce na duplikovani sudy a lichy aby se to nemuselo psat dvakrat
 

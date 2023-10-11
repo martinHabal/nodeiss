@@ -37,17 +37,18 @@ router.post('/signin', function (request, response, next) {
   createTable()
   fillTAble()
 
-
 });
 
-//login probehne automaticky z cookies nebo po prihlaseni, tedy zatim bez cookies
+//login probehne pokazdy pres session
 router.post('/login', (req, res) => {
 
-  // req.session.loggedIn = true;
-
   let login = req.body.login
+  // req.session.loggedIn = true;
+  req.session.user = login;
+  
+  console.log(login)
   // const userCookie = req.cookies.user;
-  // console.log(userCookie)
+  console.log(req.session.login)
 
   // if (userCookie) {
     dbConnection.query(`SELECT * FROM users WHERE login='${login}'`, (error, results, fields) => {
@@ -56,9 +57,9 @@ router.post('/login', (req, res) => {
         return;
       }
       console.log(results)
-      res.render('chat', { results });
+      // res.render('chat', { results });
       // dbConnection.close()
-      // res.redirect('/chat');
+      res.redirect('/index'); //redir na routu index GET
       // res.sendStatus(200);
     })
   // } else {
@@ -67,7 +68,6 @@ router.post('/login', (req, res) => {
   // }
   
 })
-
 
 module.exports = router;
 //dodelat vlozeni zaznamu do tabulky users

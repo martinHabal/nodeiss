@@ -3,16 +3,6 @@
 
 
 
-// const loadBtn = document.getElementById('load')
-// const loadBtn2 = document.getElementById('load2')
-// console.log(loadBtn)
-// loadBtn.addEventListener('click', () => {
-//     loadStatement()
-// })
-// loadBtn2.addEventListener('click', () => {
-//     loadStatement2()
-// })
-
 //nahrání rozvrhu do výkazu
 function loadStatement() {
     // Data, která budou odeslána jako součást požadavku (může být objekt nebo FormData)

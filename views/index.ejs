@@ -6,7 +6,7 @@
   <script src="/timeTable.js"></script>
   <script src="/statement.js"></script>
   <script src="/js.js"></script>
-  <script type="module" src="/test.js"></script>
+  
   <!-- tyhle imorty pak presunout jen do indexu, zbytecne se to duplikuje z tech sablon -->
 </head>
 <body>
@@ -97,77 +97,3 @@
   
 </body>
 </html>
-
-<!-- app.get('/', (req, res) => {
-
-
-  let sql = `SELECT * FROM users `;
-  //dotaz na SQL
-  connection.query(sql, (error, results, fields) => {
-    if (error) {
-      console.error(error);
-      return;
-    }
-    console.log(results)
-    console.log("Byl nahran mainpage")
-    // res.cookie('user', 'Vera', { maxAge: 900000, httpOnly: false });
-    const userCookie = req.cookies.user;
-    console.log(userCookie)
-    res.render(`mainpage`, { data: results, user:  "hgf"});
-    // res.render(`mainpage`, { results });
-  });
-});
-
-app.get('/login', (req, res) => {
-  // res.send('<h1>Toto je jiná stránka</h1>');
-  res.render('login')
-});
-
-app.post('/login', (req, res) => {
-  console.log(`Body je ${req.body.username}`)
-  let sql = `SELECT * FROM users WHERE id=${req.body.username}`;
-  //dotaz na SQL
-  connection.query(sql, (error, results, fields) => {
-    if (error) {
-      console.error(error);
-      return;
-    }
-    console.log(results)
-    console.log("Uživatel byl smazán")
-    res.cookie('user', 'Tibor', { maxAge: 900000, httpOnly: true });
-    res.render('mainpage', { results });
-
-  })
-  // res.render('login')
-});
-
-
-//Cookies
-app.get('/getCookie', (req, res) => {
-  const userCookie = req.cookies.user;
-  res.send(`Value of the 'user' cookie: ${userCookie}`);
-});
-
-//SESSION
-app.get('/setSession', (req, res) => {
-  // Uložení hodnoty do session
-  req.session.username = 'JohnDoe';
-  res.send('Session data uložena.');
-});
-
-app.get('/getSession', (req, res) => {
-  // Získání hodnoty z session
-  const username = req.session.username || 'Nepřihlášený uživatel';
-  res.send(`Přihlášený uživatel: ${username}`);
-});
-
-app.get('/logout', (req, res) => {
-  req.session.destroy(err => {
-    if (err) {
-      console.error('Chyba při mazání session:', err);
-    } else {
-      console.log('Session byla odhlášena.');
-    }
-    res.redirect('/');
-  }); -->
-<!-- }); -->

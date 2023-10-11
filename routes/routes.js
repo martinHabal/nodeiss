@@ -5,6 +5,14 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');//NPM I MYSQL2//konektor na DB
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
+
+router.use(session({
+  secret: 'sadhgsctgza', // Tajný klíč pro šifrování session dat
+  resave: false, // Nerezervovat session, pokud není změněna
+  saveUninitialized: true, // Uložit session i pro nepřihlášené uživatele
+  cookie: { secure: false } // Nastavení cookie (může být změněno podle potřeby)
+}));
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
@@ -51,14 +59,15 @@ router.post('/firstDaySet', function (request, response, next) {
 })
 
 
-
-
 router.get('/', (req, res) => {
-      res.render('index');
+  console.log("session je "+ req.session.login)//tu promennou to vidi kdyz tam prejdu z po odeslani loginu, ale pokud hned tak je to prazdny
+  res.render('login'); // -> onclick na /login post v users
+  // res.redirect('index')
 })
 
-router.get('/login', (req, res) => {
-  res.render('login');
+router.get('/index', (req, res) => {
+  console.log("session je "+ req.session.login)//tu promennou to vidi kdyz tam prejdu z po odeslani loginu
+  res.render('index');
 })
 
 
@@ -66,124 +75,5 @@ router.get('/login', (req, res) => {
 
 
 
-//nacteni rozvrhu do vykazu, prvni cast
-router.post('/loadStatement', (req, res) => {
-
-
-  // Vytvoření dotazu
-  const sql = `
-    SELECT
-      id,
-      class,
-      state
-    FROM
-      timetable
-    WHERE
-        id IN (
-          SELECT
-            id
-          FROM
-            statement);
-  `;
-
-
-
-  // Spuštění dotazu
-  connection.query(sql, (err, results) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    console.log(results)
-    // Aktualizace tabulky
-    const updateSql = `
-      UPDATE statement
-      SET
-        class = ?,
-        state = ?
-      WHERE
-        id = ?;
-    `;
-
-    for (const result of results) {
-      connection.query(
-        updateSql,
-        [result.class, result.id, result.id],
-        (err, results) => {
-          if (err) {
-            console.log(err);
-            return;
-          }
-
-          console.log("Data byla aktualizována");
-        },
-      );
-    }
-  });
-});
-
-router.post('/loadStatement2', (req, res) => {
-
-
-  connection.connect((err) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-
-    // Vytvoření dotazu k výběru dat
-    const selectSql = `
-      SELECT
-        *
-      FROM
-        timetable
-      WHERE
-        id IN (
-          SELECT
-            id
-          FROM
-            statement
-        );
-    `;
-
-    // Spuštění dotazu
-    connection.query(selectSql, (err, results) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-
-      // Aktualizace dat
-      for (const result of results) {
-        console.log(result.class)
-        const updateSql = `
-          UPDATE statement
-          SET
-            class = '${result.class}'
-          WHERE
-            id = ?;
-        `;
-
-        connection.query(
-          updateSql,
-          [result.id + 8],
-          (err, results) => {
-            if (err) {
-              console.log(err);
-              return;
-            }
-
-            console.log("Data byla duplikovana");
-          },
-        );
-      }
-    });
-
-
-  });
-
-
-
-});
 // });
 module.exports = router;

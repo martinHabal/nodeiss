@@ -41,15 +41,6 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));//dekoduje data poslana pres POST
 
 
-// const connection = mysql.createConnection({
-//   host: 'localhost', // Název nebo IP adresa serveru databáze
-//   user: 'mh', // Uživatelské jméno
-//   password: 'befelemepeseveze44', // Heslo
-//   database: 'timetable', // Název databáze
-//   port: 3001
-// });
-
-
 app.get('/newuser', (req, res) => {
   const data = {
     message: 'Index'
@@ -57,40 +48,6 @@ app.get('/newuser', (req, res) => {
   res.render('newuser', { data });
 
 })
-
-// app.post('/newuser', function (request, response, next) {
-
-//   // SQL dotaz pro vložení dat do databáze
-//   var sql = `INSERT INTO users (fname, lname) VALUES ('${request.body.fname}', '${request.body.lname}')`;
-
-//   connection.query(sql, (error, results, fields) => {
-//     if (error) {
-//       console.error(error);
-//       return;
-//     }
-//     console.log(results);
-//   })
-//   response.send(`Uživatele byli vloženi do DB`)
-
-// })
-
-
-
-
-// //routa na vypis vsech useru
-// app.get('/users', (req, res) => {
-
-//   //dotaz na SQL
-//   connection.query('SELECT * FROM users', (error, results, fields) => {
-//     if (error) {
-//       console.error(error);
-//       return;
-//     }
-//     console.log(results)
-//     res.render('users', { results });
-
-//   })
-// })
 
 //routa na výmaz usera
 app.post('/deleteuser', (req, res) => {
@@ -109,25 +66,6 @@ app.post('/deleteuser', (req, res) => {
 
   })
 })
-
-app.post('/deleteallusers', (req, res) => {
-  
-  let sql = `DELETE FROM users`;
-  //dotaz na SQL
-  connection.query(sql, (error, results, fields) => {
-    if (error) {
-      console.error(error);
-      return;
-    }
-    console.log(results)
-    console.log("Všichni uživatelé byli smazáni")
-
-    res.render('users', { results });
-
-  })
-  
-})
-
 
 app.get('/galery', (req, res) => {
   const imagePath = 'w.PNG'; // Cesta k obrázku

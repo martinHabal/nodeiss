@@ -5,9 +5,11 @@ const dbConnection = require('../db/db');
 
 router.get('/timetable', (req, res) => {
 
-    if (req.cookies.user) {
-      const userCookie = req.cookies.user;
-      const table = userCookie.toLowerCase() + "_statement"
+  let login = req.session.login
+console.log(`session v timetable je ` + login)
+  
+      
+      const table = login.toLowerCase() + "_statement"
       dbConnection.query(`SELECT * FROM ${table}`, (error, results, fields) => {
         if (error) {
           console.error(error);
@@ -22,15 +24,7 @@ router.get('/timetable', (req, res) => {
         res.render('timetable', { data });
   
       })
-    } else {
   
-      var data = {
-        results: results,
-        userLogged: table,
-      };
-  
-      res.render('timetable', { data });
-    }
   });
   
   
