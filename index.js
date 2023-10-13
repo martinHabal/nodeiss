@@ -4,6 +4,7 @@ const mysql = require('mysql2');//NPM I MYSQL2//konektor na DB
 const path = require('path');//pro manipulaci s cestami, ať už se jedná o absolutní cesty, relativní cesty
 const bodyParser = require('body-parser');//import bodyParseru
 const session = require('express-session');
+const cookieParser = require("cookie-parser");
 
 
 const app = express()//app běží na expressu
@@ -22,13 +23,17 @@ app.use('/', routes);
 app.use('/', users);
 app.use('/', timetable);
 app.use('/', statement);
-
+app.use(cookieParser());
+const oneDay = 1000 * 60 * 60 * 24;
 app.use(session({
   secret: 'sadhgsctgza', // Tajný klíč pro šifrování session dat
   resave: false, // Nerezervovat session, pokud není změněna
   saveUninitialized: true, // Uložit session i pro nepřihlášené uživatele
-  cookie: { secure: false } // Nastavení cookie (může být změněno podle potřeby)
+  cookie: { secure: false, maxAge: oneDay }, // Nastavení cookie (může být změněno podle potřeby), doba vypršení platnosti cookie. Zmizi z prohlizece SID
+  resave: false//Umožňuje uložit relaci zpět do úložiště relací, i když relace nebyla během požadavku nikdy změněna. Souvislost s dva paralelní požadavky na server
 }));
+
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -40,6 +45,19 @@ app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: false }));//dekoduje data poslana pres POST
 
+app.get('/set',function(req, res){
+  req.session.user = { name:'Chetan' };
+  res.send('Session set');
+  });
+  
+  app.get('/get',function(req, res){
+      if(req.session.user) {
+  
+          res.send(req.session.user);
+      } else {
+          res.send("musíš se přihlásit");
+      }
+  });
 
 app.get('/newuser', (req, res) => {
   const data = {
@@ -73,8 +91,8 @@ app.get('/galery', (req, res) => {
 });
 
 
-
 app.get('/chat', (req, res) => {
+
   res.render('chat');
 });
 
